@@ -9,17 +9,17 @@ class LogIn(View):
     def get(self, request):
         twitchUser = TwitchUser()
         request.session['token'] = twitchUser.token
-        request.session['twitchUser'] = twitchUser
+        request.session['refresh_token'] = twitchUser.refresh_token
         return redirect('twitch')
 
 class TwitchTest(generic.TemplateView):
     template_name="dtcapp/test-twitch.html"
 
     def get_context_data(self, **kwargs):
+        twitchUser = TwitchUser(self.request.session['token'],self.request.session['refresh_token'])
+        followers = twitchUser.get_user_following()
         context = super().get_context_data(**kwargs)
-        context['followers'] = self.followers
+        context['followers'] = followers['data']
+        print(followers)
         return context
         
-    def get(self,request):
-        twitchUser = request.session['twitchUser']
-        self.followers = twitchUser.get_user_following()
