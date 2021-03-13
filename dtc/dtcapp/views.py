@@ -5,6 +5,20 @@ from django.views import generic, View
 from dtcapp.twitchtools import TwitchUser
 
 # Create your views here.
+
+def index(request):
+    context = {}
+    return render(request, 'dtcapp/index.html', context)
+
+class Home(generic.TemplateView):
+    template_name="dtcapp/home.html"
+
+class Profile(generic.TemplateView):
+    template_name="dtcapp/profile.html"
+
+class Subscribe(generic.TemplateView):
+    template_name="dtcapp/subscribe.html"
+
 class LogIn(View):
     def get(self, request):
         twitchUser = TwitchUser()
@@ -22,4 +36,3 @@ class TwitchTest(generic.TemplateView):
         context['followers'] = followers['data']
         print(followers)
         return context
-        
