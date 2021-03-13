@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic, View
 
 
-from dtcapp.twitchtools import TwitchUser
+from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
 
 # Create your views here.
 class LogIn(View):
@@ -21,5 +21,10 @@ class TwitchTest(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['followers'] = followers['data']
         print(followers)
+
+        followers_ids = [follower['to_id'] for follower in followers['data']]
+        twitchClip = TwitchClip(followers_ids)
+        clips = twitchClip.get_clips_from_all_followed()
+        print(clips)
         return context
         
