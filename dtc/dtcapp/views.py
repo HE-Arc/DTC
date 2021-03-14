@@ -33,7 +33,6 @@ class TwitchTest(generic.TemplateView):
         twitchUser = TwitchUser(self.request.session['token'],self.request.session['refresh_token'])
         followers = twitchUser.get_user_following()
         context = super().get_context_data(**kwargs)
-<<<<<<< HEAD
         #print(followers)
 
         followers_ids = [follower['to_id'] for follower in followers['data']]
@@ -53,8 +52,3 @@ class TwitchTest(generic.TemplateView):
         print(clips)
         return context
         
-=======
-        context['followers'] = followers['data']
-        print(followers)
-        return context
->>>>>>> 29ea883dd482773c9d1c90e960f33209ce072ede
