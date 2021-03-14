@@ -11,6 +11,11 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.index, name='index'),
+    path('index/', views.index, name='index'),
+    path('home/', views.Home.as_view(), name='home'),
+    path('profile/', views.Profile.as_view(), name='profile'),
+    path('subscribe/', views.Subscribe.as_view(), name='subscribe'),
     path('login/',views.LogIn.as_view(), name='login'),
     path('twitch/',views.TwitchTest.as_view(),name='twitch')
 ]
