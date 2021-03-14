@@ -74,8 +74,8 @@ class TwitchClip:
 
     def get_infos_followed(self):
         users_followed = self.twitch.get_users(user_ids =self.followed_ids)
-        names_followed =[user['data']['display_name'] for user in users_followed]
-        pictures_followed = [user['data']['profile_image_url'] for user in users_followed]
+        names_followed =[user['display_name'] for user in users_followed['data']]
+        pictures_followed = [user['profile_image_url'] for user in users_followed['data']]
         return names_followed, pictures_followed
 
     def get_datetimes(self,twitchTop):
@@ -97,8 +97,6 @@ class TwitchClip:
         if ended_at is not None:
             end = ended_at
 
-        print(f'EEEEENDDD : {type(end)}')
-        print(f'STARTTTT : {type(start)}')
         clips = self.twitch.get_clips(broadcaster_id=broadcaster_id,first=n_clips,started_at=start,ended_at=end)
         return clips
 

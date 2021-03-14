@@ -19,11 +19,21 @@ class TwitchTest(generic.TemplateView):
         twitchUser = TwitchUser(self.request.session['token'],self.request.session['refresh_token'])
         followers = twitchUser.get_user_following()
         context = super().get_context_data(**kwargs)
-        context['followers'] = followers['data']
-        print(followers)
+        #print(followers)
 
         followers_ids = [follower['to_id'] for follower in followers['data']]
         twitchClip = TwitchClip(followers_ids)
+        names_followed, pictures_followed = twitchClip.get_infos_followed()
+
+        followers={}
+
+        for i, flw_id in enumerate(followers_ids):
+            followers[flw_id] = {}
+            followers[flw_id]['name'] = names_followed[i]
+            followers[flw_id]['picture'] = pictures_followed[i]
+
+        context['followers'] = followers
+
         clips = twitchClip.get_clips_from_all_followed()
         print(clips)
         return context
