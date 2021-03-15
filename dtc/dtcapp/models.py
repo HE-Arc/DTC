@@ -30,7 +30,7 @@ class User(AbstractBaseUser):
     # voir ici pour mdp plus tard : https://stackoverflow.com/questions/17523263/how-to-create-password-field-in-model-django
     #password = models.CharField(max_length=50)
     Likes = models.ManyToManyField(LikedClip)
-    Follows = models.ManyToManyField(Streamer)
+    Follows = models.ManyToManyField(Streamer,through='Following')
     Subscriptions = models.ManyToManyField('self')
 
     objects = UserManager()
@@ -40,3 +40,9 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+
+
+class Following(models.Model):
+    streamer = models.ForeignKey(Streamer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activated = models.BooleanField(default=True)
