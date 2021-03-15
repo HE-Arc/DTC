@@ -8,6 +8,8 @@ from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
 
 from django.contrib import messages
 
+from .forms import SignUpForm
+
 # Create your views here.
 
 def index(request):
@@ -25,8 +27,25 @@ class Subscribe(generic.TemplateView):
 
 class UserCreateView(generic.CreateView):
     model=User
-    fields=['username','email','password']
+    form_class=SignUpForm
     success_url = reverse_lazy('home')
+
+    def get_initial(self):
+        initial = super(UserCreateView, self).get_initial()
+        initial = initial.copy()
+
+        self.twitch_id = self.request.session['twitch_id']
+
+        initial['username'] =  self.request.session['twitch_name']
+        initial['email'] = self.request.session['email']
+        initial['picture'] = self.request.session['profile_image_url']
+
+        return initial
+
+    def form_valid(self, form):
+        #Create User ?
+        return super(UserCreateView, self).form_valid(form)
+        
 
 def signup(request):
     
