@@ -12,12 +12,14 @@ class PictureWidget(forms.widgets.Widget):
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username','email','picture','password']
+        fields = ['username','email','picture','password','id_twitch','pictureURL']
     username = forms.CharField(max_length=100,required=True)
     email = forms.CharField(max_length=100,required=True)
     picture = forms.ImageField(widget=PictureWidget)
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password=forms.CharField(widget=forms.PasswordInput)
+    id_twitch = forms.CharField(max_length=30,widget = forms.HiddenInput())
+    pictureURL = forms.CharField(max_length=250,widget = forms.HiddenInput())
 
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()
@@ -28,3 +30,4 @@ class SignUpForm(forms.ModelForm):
             raise forms.ValidationError(
                 "password and confirm_password does not match"
             )
+

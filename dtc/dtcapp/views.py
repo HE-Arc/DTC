@@ -34,16 +34,19 @@ class UserCreateView(generic.CreateView):
         initial = super(UserCreateView, self).get_initial()
         initial = initial.copy()
 
-        self.twitch_id = self.request.session['twitch_id']
-
         initial['username'] =  self.request.session['twitch_name']
         initial['email'] = self.request.session['email']
         initial['picture'] = self.request.session['profile_image_url']
+        initial['id_twitch']=self.request.session['twitch_id']
+        initial['pictureURL'] = self.request.session['profile_image_url']
 
         return initial
 
     def form_valid(self, form):
         #Create User ?
+        #TODO:Check if id_twitch is still the same than in session
+        form.instance.set_password(form.cleaned_data['password'])
+
         return super(UserCreateView, self).form_valid(form)
         
 
