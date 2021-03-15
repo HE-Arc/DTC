@@ -123,6 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# User
+AUTH_USER_MODEL = 'dtcapp.User'
 
 # Twitch environments variables
 import environ

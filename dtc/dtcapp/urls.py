@@ -17,7 +17,9 @@ urlpatterns = [
     path('profile/', views.Profile.as_view(), name='profile'),
     path('subscribe/', views.Subscribe.as_view(), name='subscribe'),
     path('login/',views.LogIn.as_view(), name='login'),
-    path('twitch/',views.TwitchTest.as_view(),name='twitch')
+    path('twitch/',views.TwitchTest.as_view(),name='twitch'),
+    path('signup/',views.signup,name='signup'),
+    path('user/new',views.UserCreateView.as_view(),name='user-create')
 ]
     
     
