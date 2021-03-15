@@ -17,3 +17,14 @@ class SignUpForm(forms.ModelForm):
     email = forms.CharField(max_length=100,required=True)
     picture = forms.ImageField(widget=PictureWidget)
     password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password=forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super(SignUpForm, self).clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password != confirm_password:
+            raise forms.ValidationError(
+                "password and confirm_password does not match"
+            )
