@@ -1,10 +1,9 @@
 from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import UserManager
 
 # Create your models here.
-
-
 class LikedClip(models.Model):
     clipURL = models.CharField(max_length=250)
     id_clip = models.CharField(max_length=30)
@@ -33,6 +32,8 @@ class User(AbstractBaseUser):
     Likes = models.ManyToManyField(LikedClip)
     Follows = models.ManyToManyField(Streamer)
     Subscriptions = models.ManyToManyField('self')
+
+    objects = UserManager()
 
     USERNAME_FIELD='username'
     REQUIRED_FIELDS=['password','email','pictureURL','id_twitch']
