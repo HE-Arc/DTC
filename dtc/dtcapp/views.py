@@ -28,6 +28,9 @@ class Profile(generic.TemplateView):
 class Subscribe(generic.TemplateView):
     template_name="dtcapp/subscribe.html"
 
+class LoggingIn(generic.TemplateView):
+    template_name="dtcapp/logging_in.html"
+
 class UserCreateView(generic.CreateView):
     model=User
     form_class=SignUpForm

@@ -15,6 +15,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('home/', views.Home.as_view(), name='home'),
     path('profile/', views.Profile.as_view(), name='profile'),
+    path('logging_in/', views.LoggingIn.as_view(), name='logging_in'),
     path('subscribe/', views.Subscribe.as_view(), name='subscribe'),
     path('login/',views.login, name='login'),
     path('twitch/',views.TwitchTest.as_view(),name='twitch'),

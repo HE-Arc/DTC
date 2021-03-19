@@ -1,9 +1,10 @@
 {% extends 'dtcapp/base.html' %}
 
+{% block title %}Index{% endblock %}
+
 {% block content %}
 
 <h1>Index</h1>
-
 
 <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
@@ -16,4 +17,4 @@
 
 <a href="{% url 'signup' %}">Signup</a>
 
-{% endblock content %}
+{% endblock %}
