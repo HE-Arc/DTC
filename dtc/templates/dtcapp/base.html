@@ -3,11 +3,14 @@
 
 <head>
     <title>{% block title %}{% endblock %}</title>
-    
-    {% load bootstrap4 %}
 
+    {% load bootstrap4 %}
     {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
     <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/style.css' %}">
+    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,14 +19,48 @@
 
 <body>
 
+    {#
+
+    {% if request.user.is_authenticated %}
+    <p>Welcome {{ user.username }} !!!</p>
+    {% else %}
+    {{request.user}}
+    {% endif %}
+
+    #}
+
     {# Navbar #}
-    <nav>
-        <ul>
-            <a href="{% url 'index'%}">
-                {% load static %}
-                <img src="{%static 'images/logo_dtc.png' %}" width="6%" alt="logo dtc" class="" />
-            </a>
-        </ul>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-nav navbar-brand ml-4" href="#">
+            <img src="{%static 'images/logo_dtc.png' %}" width="80rem" class="d-inline-block align-top">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active ml-4 mr-4" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Subscriptions</a>
+            </div>
+
+            <div class="navbar-nav nav-item dropdown ml-auto mr-4">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>&#8199;Profile</a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                    <a class="dropdown-item" href="#">My account</a>
+                    <a class="dropdown-item" href="#">Log out</a>
+                </div>
+            </div>
+
+        </div>
+
     </nav>
     {# ------ #}
 
