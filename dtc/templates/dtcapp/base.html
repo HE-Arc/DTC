@@ -3,8 +3,11 @@
 
 <head>
     <title>{% block title %}{% endblock %}</title>
-
+    
     {% load bootstrap4 %}
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/style.css' %}">
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
