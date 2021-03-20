@@ -11,6 +11,7 @@ from django.contrib import messages
 from .forms import SignUpForm
 
 from django.contrib.auth import login as loginto
+from django.contrib.auth import logout as logoutof
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_protect
 
@@ -115,6 +116,13 @@ def login(request):
     else:
         return redirect('index')
 
+
+def logout(request):
+
+    if request.user.is_authenticated:
+        logoutof(request)
+    
+    return redirect('index')
 
 class TwitchTest(AuthView):
     template_name = "dtcapp/test-twitch.html"

@@ -18,6 +18,7 @@ urlpatterns = [
     path('logging_in/', views.LoggingIn.as_view(), name='logging_in'),
     path('subscribe/', views.Subscribe.as_view(), name='subscribe'),
     path('login/',views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
     path('twitch/',views.TwitchTest.as_view(),name='twitch'),
     path('signup/',views.signup,name='signup'),
     path('user/new',views.UserCreateView.as_view(),name='user-create')
