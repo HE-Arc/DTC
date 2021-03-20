@@ -18,9 +18,13 @@ from django.views.decorators.csrf import csrf_protect
 
 def index(request):
     context = {}
-    return render(request, 'dtcapp/index.html', context)
 
-
+    # Cannot access the main index page if authenticated already
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        return render(request, 'dtcapp/index.html', context)
+    
 class AuthView(generic.TemplateView):
     """A base View class inheriting from TemplateView to allow access only when authenticated."""
 
@@ -29,6 +33,13 @@ class AuthView(generic.TemplateView):
             return redirect('logging_in')
         return super(AuthView, self).get(request, *args, **kwargs)
 
+class NotAuthView(generic.TemplateView):
+    """A base View class inheriting from TemplateView to allow access only when NOT authenticated."""
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super(NotAuthView, self).get(request, *args, **kwargs)
 
 class Home(AuthView):
     template_name = "dtcapp/home.html"
@@ -42,11 +53,11 @@ class Subscribe(generic.TemplateView):
     template_name = "dtcapp/subscribe.html"
 
 
-class LoggingIn(generic.TemplateView):
+class LoggingIn(NotAuthView):
     template_name = "dtcapp/logging_in.html"
 
 
-class UserCreateView(generic.CreateView):
+class UserCreateView(NotAuthView):
     model = User
     form_class = SignUpForm
     success_url = reverse_lazy('home')
@@ -72,6 +83,10 @@ class UserCreateView(generic.CreateView):
 
 
 def signup(request):
+
+    # Cannot signup if already authenticated
+    if request.user.is_authenticated:
+        return redirect('home')
 
     twitch_user = TwitchUser()
 
