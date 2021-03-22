@@ -82,8 +82,14 @@ class UserCreateView(generic.CreateView):
     def get_initial(self):
         initial = super(UserCreateView, self).get_initial()
         initial = initial.copy()
-               
-        initial['username'] =  self.username
+
+        self.username = self.request.session['twitch_name']
+        self.email = self.request.session['email']
+        self.picture = self.request.session['profile_image_url']
+        self.id_twitch = self.request.session['twitch_id']
+        self.pictureURL = self.request.session['profile_image_url']
+
+        initial['username'] =  self.username  
         initial['email'] = self.email
         initial['picture'] = self.picture
         initial['id_twitch']= self.id_twitch
@@ -97,6 +103,12 @@ class UserCreateView(generic.CreateView):
 
         if form.cleaned_data['id_twitch'] == self.id_twitch:  
             form.instance.set_password(form.cleaned_data['password'])
+
+            user = form.save(commit=False)
+
+            user.save()
+
+            user.update_follows(self.request.session['followers_ids'])
 
             return super(UserCreateView, self).form_valid(form)
         else:
@@ -120,6 +132,10 @@ def signup(request):
         request.session['profile_image_url'] = twitch_user.user['profile_image_url']
         request.session['email'] = twitch_user.user['email']
         request.session['twitch_id'] = twitch_user.get_user_id()
+
+        followers = twitch_user.get_user_following()
+        followers_ids = [follower['to_id'] for follower in followers['data']]
+        request.session['followers_ids'] = followers_ids
 
         return redirect('user-create')
     
