@@ -47,9 +47,9 @@ class User(AbstractBaseUser):
             names_followed, pictures_followed = twitchClip.get_infos_followed()
 
             for i, flw_id in enumerate(followers_ids):
-                streamer_db = Streamer.objects.filter(id_streamer=flw_id)
+                streamer_db = Streamer.objects.filter(id_streamer=flw_id).first()
                 streamer = None
-                if not streamer_db.exists():
+                if not streamer_db is not None:
                     streamer = Streamer(name=names_followed[i],image=pictures_followed[i],id_streamer=flw_id)
                     streamer.save()
                 else:

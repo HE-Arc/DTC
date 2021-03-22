@@ -110,6 +110,8 @@ class UserCreateView(generic.CreateView):
 
             user.update_follows(self.request.session['followers_ids'])
 
+            loginto(self.request, user)
+
             return super(UserCreateView, self).form_valid(form)
         else:
             messages.error(self.request,'ID Twitch has been changed.')
