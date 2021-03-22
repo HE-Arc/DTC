@@ -113,6 +113,24 @@
   cursor: pointer;
 }
 
+/* Customed by us */
+
+/*
+twitch :            #913efd;
+twitch-lighter :    #b072ff;
+twitch-light :      #cea9ff;
+twitch-lightest :   #ebe1ff;
+twitch-feint :      #fcfaff;
+*/
+
 .border-twitch {
-  border: 2px solid #cea9ff;
+  border: .15em solid #cea9ff;
+}
+
+.dropdown-item:hover {
+  background-color: #fcfaff;
+}
+
+.dropdown-item:active {
+  background-color: #b072ff;
 }
