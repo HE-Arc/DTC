@@ -1,7 +1,71 @@
-{% include 'dtcapp/fragments/header.html'%}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content%}
+<head>
+    <title>{% block title %}{% endblock %}</title>
 
-{% endblock content %}
+    {% load bootstrap4 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
 
-{% include 'dtcapp/fragments/footer.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/style.css' %}">
+    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+    {# Navbar #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        {% if not user.is_authenticated %}
+        <div class="w-100 d-flex justify-content-center">
+            {% endif %}
+            <a class="navbar-nav navbar-brand ml-4" href="{% url 'index' %}">
+                <img src="{%static 'images/logo_dtc.png' %}" width="80rem" class="d-inline-block align-top">
+            </a>
+            {% if not user.is_authenticated %}
+        </div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active ml-4 mr-4" href="{% url 'home' %}">Home <span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Subscriptions</a>
+            </div>
+
+            <div class="navbar-nav nav-item dropdown ml-auto mr-4 cursor-pointer">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>&#8199;Profile</a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                    <a class="dropdown-item" href="{% url 'profile' %}">My account</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                </div>
+            </div>
+            
+        </div>
+        {% endif %}
+
+    </nav>
+
+    {# Content #}
+    {% block content %}{% endblock content %}
+
+    <p style="text-align: center; position: absolute; width: 100%; bottom: 0; height: 2.5rem;">2021 @HE-ARC</p>
+
+</body>
+
+</html>

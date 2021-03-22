@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dtcapp',
+    'bootstrap4',
+    'fontawesome-free',
 ]
 
 MIDDLEWARE = [
