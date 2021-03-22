@@ -1,5 +1,11 @@
 {% extends 'dtcapp/base.html' %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'dtcapp/log_sign_form.css' %}">
+{% endblock %}
+
 {% block title %}Logging In{% endblock %}
 
 {% block content %}
@@ -35,7 +41,7 @@
                         <hr class="my-4">
                         <h5 class="card-title text-center mb-4">Don't have an account ?</h5>
                         <p  class="btn btn-lg btn-twitch btn-block text-uppercase" href="{% url 'signup' %}">
-                            <i class="fab fa-twitch mr-2" style="vertical-align: text-top;font-size:1.2rem;"></i> Sign up now
+                            <i class="fab fa-twitch mr-2" style="vertical-align: text-top;font-size:1.2rem;"></i> Sign up with twitch now
                         </p>
                     </form>
 
