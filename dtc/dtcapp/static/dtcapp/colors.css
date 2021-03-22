@@ -1,0 +1,719 @@
+/*------------------------------------
+- COLOR twitch
+------------------------------------*/
+
+.alert-twitch {
+    color: #5301be;
+    background-color: #104107ff;
+    border-color: #f8f3fe;
+}
+
+.alert-twitch hr {
+    border-top-color: #eadafe;
+}
+
+.alert-twitch .alert-link {
+    color: #3d018c;
+}
+
+.badge-twitch {
+    color: #fff;
+    background-color: #913efd;
+}
+
+.badge-twitch[href]:hover, .badge-twitch[href]:focus {
+    color: #fff;
+    background-color: #740bfc;
+}
+
+.bg-twitch {
+    background-color: #913efd !important;
+}
+
+a.bg-twitch:hover, a.bg-twitch:focus,
+button.bg-twitch:hover,
+button.bg-twitch:focus {
+    background-color: #740bfc !important;
+}
+
+.border-twitch {
+    border-color: #913efd !important;
+}
+
+.btn-twitch {
+    color: #fff;
+    background-color: #913efd;
+    border-color: #913efd;
+}
+
+.btn-twitch:hover {
+    color: #fff;
+    background-color: #7c1afc;
+    border-color: #740bfc;
+}
+
+.btn-twitch:focus, .btn-twitch.focus {
+    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.btn-twitch.disabled, .btn-twitch:disabled {
+    color: #fff;
+    background-color: #913efd;
+    border-color: #913efd;
+}
+
+.btn-twitch:not(:disabled):not(.disabled):active, .btn-twitch:not(:disabled):not(.disabled).active, .show > .btn-twitch.dropdown-toggle {
+    color: #fff;
+    background-color: #740bfc;
+    border-color: #6c02f6;
+}
+
+.btn-twitch:not(:disabled):not(.disabled):active:focus, .btn-twitch:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.btn-outline-twitch {
+    color: #913efd;
+    background-color: transparent;
+    border-color: #913efd;
+}
+
+.btn-outline-twitch:hover {
+    color: #fff;
+    background-color: #913efd;
+    border-color: #913efd;
+}
+
+.btn-outline-twitch:focus, .btn-outline-twitch.focus {
+    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.btn-outline-twitch.disabled, .btn-outline-twitch:disabled {
+    color: #913efd;
+    background-color: transparent;
+}
+
+.btn-outline-twitch:not(:disabled):not(.disabled):active, .btn-outline-twitch:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch.dropdown-toggle {
+    color: #fff;
+    background-color: #913efd;
+    border-color: #913efd;
+}
+
+.btn-outline-twitch:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.list-group-item-twitch {
+    color: #5301be;
+    background-color: #f8f3fe;
+}
+
+.list-group-item-twitch.list-group-item-action:hover, .list-group-item-twitch.list-group-item-action:focus {
+    color: #5301be;
+    background-color: #eadafe;
+}
+
+.list-group-item-twitch.list-group-item-action.active {
+    color: #fff;
+    background-color: #5301be;
+    border-color: #5301be;
+}
+
+.table-twitch,
+.table-twitch > th,
+.table-twitch > td {
+    background-color: #f8f3fe;
+}
+
+.table-hover .table-twitch:hover {
+    background-color: #eadafe;
+}
+
+.table-hover .table-twitch:hover > td,
+.table-hover .table-twitch:hover > th {
+    background-color: #eadafe;
+}
+
+.text-twitch {
+    color: #913efd !important;
+}
+
+a.text-twitch:hover, a.text-twitch:focus {
+    color: #740bfc !important;
+}
+
+/*------------------------------------
+- COLOR twitch-lighter
+------------------------------------*/
+
+.alert-twitch-lighter {
+    color: #6c00f6;
+    background-color: #12213eff;
+    border-color: #116129ff;
+}
+
+.alert-twitch-lighter hr {
+    border-top-color: #108110ff;
+}
+
+.alert-twitch-lighter .alert-link {
+    color: #5600c3;
+}
+
+.badge-twitch-lighter {
+    color: #212529;
+    background-color: #b072ff;
+}
+
+.badge-twitch-lighter[href]:hover, .badge-twitch-lighter[href]:focus {
+    color: #212529;
+    background-color: #933fff;
+}
+
+.bg-twitch-lighter {
+    background-color: #b072ff !important;
+}
+
+a.bg-twitch-lighter:hover, a.bg-twitch-lighter:focus,
+button.bg-twitch-lighter:hover,
+button.bg-twitch-lighter:focus {
+    background-color: #933fff !important;
+}
+
+.border-twitch-lighter {
+    border-color: #b072ff !important;
+}
+
+.btn-twitch-lighter {
+    color: #212529;
+    background-color: #b072ff;
+    border-color: #b072ff;
+}
+
+.btn-twitch-lighter:hover {
+    color: #212529;
+    background-color: #9b4eff;
+    border-color: #933fff;
+}
+
+.btn-twitch-lighter:focus, .btn-twitch-lighter.focus {
+    box-shadow: 0 0 0 0.2rem rgba(176, 114, 255, 0.5);
+}
+
+.btn-twitch-lighter.disabled, .btn-twitch-lighter:disabled {
+    color: #212529;
+    background-color: #b072ff;
+    border-color: #b072ff;
+}
+
+.btn-twitch-lighter:not(:disabled):not(.disabled):active, .btn-twitch-lighter:not(:disabled):not(.disabled).active, .show > .btn-twitch-lighter.dropdown-toggle {
+    color: #212529;
+    background-color: #933fff;
+    border-color: #8a2fff;
+}
+
+.btn-twitch-lighter:not(:disabled):not(.disabled):active:focus, .btn-twitch-lighter:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-lighter.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(176, 114, 255, 0.5);
+}
+
+.btn-outline-twitch-lighter {
+    color: #b072ff;
+    background-color: transparent;
+    border-color: #b072ff;
+}
+
+.btn-outline-twitch-lighter:hover {
+    color: #212529;
+    background-color: #b072ff;
+    border-color: #b072ff;
+}
+
+.btn-outline-twitch-lighter:focus, .btn-outline-twitch-lighter.focus {
+    box-shadow: 0 0 0 0.2rem rgba(176, 114, 255, 0.5);
+}
+
+.btn-outline-twitch-lighter.disabled, .btn-outline-twitch-lighter:disabled {
+    color: #b072ff;
+    background-color: transparent;
+}
+
+.btn-outline-twitch-lighter:not(:disabled):not(.disabled):active, .btn-outline-twitch-lighter:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch-lighter.dropdown-toggle {
+    color: #212529;
+    background-color: #b072ff;
+    border-color: #b072ff;
+}
+
+.btn-outline-twitch-lighter:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch-lighter:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch-lighter.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(176, 114, 255, 0.5);
+}
+
+.list-group-item-twitch-lighter {
+    color: #6c00f6;
+    background-color: #116129ff;
+}
+
+.list-group-item-twitch-lighter.list-group-item-action:hover, .list-group-item-twitch-lighter.list-group-item-action:focus {
+    color: #6c00f6;
+    background-color: #108110ff;
+}
+
+.list-group-item-twitch-lighter.list-group-item-action.active {
+    color: #212529;
+    background-color: #6c00f6;
+    border-color: #6c00f6;
+}
+
+.table-twitch-lighter,
+.table-twitch-lighter > th,
+.table-twitch-lighter > td {
+    background-color: #116129ff;
+}
+
+.table-hover .table-twitch-lighter:hover {
+    background-color: #108110ff;
+}
+
+.table-hover .table-twitch-lighter:hover > td,
+.table-hover .table-twitch-lighter:hover > th {
+    background-color: #108110ff;
+}
+
+.text-twitch-lighter {
+    color: #b072ff !important;
+}
+
+a.text-twitch-lighter:hover, a.text-twitch-lighter:focus {
+    color: #933fff !important;
+}
+
+/*------------------------------------
+- COLOR twitch-light
+------------------------------------*/
+
+.alert-twitch-light {
+    color: #882eff;
+    background-color: #142175ff;
+    border-color: #136160ff;
+}
+
+.alert-twitch-light hr {
+    border-top-color: #128147ff;
+}
+
+.alert-twitch-light .alert-link {
+    color: #6b00fa;
+}
+
+.badge-twitch-light {
+    color: #212529;
+    background-color: #cea9ff;
+}
+
+.badge-twitch-light[href]:hover, .badge-twitch-light[href]:focus {
+    color: #212529;
+    background-color: #b075ff;
+}
+
+.bg-twitch-light {
+    background-color: #cea9ff !important;
+}
+
+a.bg-twitch-light:hover, a.bg-twitch-light:focus,
+button.bg-twitch-light:hover,
+button.bg-twitch-light:focus {
+    background-color: #b075ff !important;
+}
+
+.border-twitch-light {
+    border-color: #cea9ff !important;
+}
+
+.btn-twitch-light {
+    color: #212529;
+    background-color: #cea9ff;
+    border-color: #cea9ff;
+}
+
+.btn-twitch-light:hover {
+    color: #212529;
+    background-color: #b985ff;
+    border-color: #b075ff;
+}
+
+.btn-twitch-light:focus, .btn-twitch-light.focus {
+    box-shadow: 0 0 0 0.2rem rgba(206, 169, 255, 0.5);
+}
+
+.btn-twitch-light.disabled, .btn-twitch-light:disabled {
+    color: #212529;
+    background-color: #cea9ff;
+    border-color: #cea9ff;
+}
+
+.btn-twitch-light:not(:disabled):not(.disabled):active, .btn-twitch-light:not(:disabled):not(.disabled).active, .show > .btn-twitch-light.dropdown-toggle {
+    color: #212529;
+    background-color: #b075ff;
+    border-color: #a866ff;
+}
+
+.btn-twitch-light:not(:disabled):not(.disabled):active:focus, .btn-twitch-light:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-light.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(206, 169, 255, 0.5);
+}
+
+.btn-outline-twitch-light {
+    color: #cea9ff;
+    background-color: transparent;
+    border-color: #cea9ff;
+}
+
+.btn-outline-twitch-light:hover {
+    color: #212529;
+    background-color: #cea9ff;
+    border-color: #cea9ff;
+}
+
+.btn-outline-twitch-light:focus, .btn-outline-twitch-light.focus {
+    box-shadow: 0 0 0 0.2rem rgba(206, 169, 255, 0.5);
+}
+
+.btn-outline-twitch-light.disabled, .btn-outline-twitch-light:disabled {
+    color: #cea9ff;
+    background-color: transparent;
+}
+
+.btn-outline-twitch-light:not(:disabled):not(.disabled):active, .btn-outline-twitch-light:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch-light.dropdown-toggle {
+    color: #212529;
+    background-color: #cea9ff;
+    border-color: #cea9ff;
+}
+
+.btn-outline-twitch-light:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch-light:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch-light.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(206, 169, 255, 0.5);
+}
+
+.list-group-item-twitch-light {
+    color: #882eff;
+    background-color: #136160ff;
+}
+
+.list-group-item-twitch-light.list-group-item-action:hover, .list-group-item-twitch-light.list-group-item-action:focus {
+    color: #882eff;
+    background-color: #128147ff;
+}
+
+.list-group-item-twitch-light.list-group-item-action.active {
+    color: #212529;
+    background-color: #882eff;
+    border-color: #882eff;
+}
+
+.table-twitch-light,
+.table-twitch-light > th,
+.table-twitch-light > td {
+    background-color: #136160ff;
+}
+
+.table-hover .table-twitch-light:hover {
+    background-color: #128147ff;
+}
+
+.table-hover .table-twitch-light:hover > td,
+.table-hover .table-twitch-light:hover > th {
+    background-color: #128147ff;
+}
+
+.text-twitch-light {
+    color: #cea9ff !important;
+}
+
+a.text-twitch-light:hover, a.text-twitch-light:focus {
+    color: #b075ff !important;
+}
+
+/*------------------------------------
+- COLOR twitch-lightest
+------------------------------------*/
+
+.alert-twitch-lightest {
+    color: #9966ff;
+    background-color: #1731adff;
+    border-color: #165198ff;
+}
+
+.alert-twitch-lightest hr {
+    border-top-color: #15417fff;
+}
+
+.alert-twitch-lightest .alert-link {
+    color: #7733ff;
+}
+
+.badge-twitch-lightest {
+    color: #212529;
+    background-color: #ebe1ff;
+}
+
+.badge-twitch-lightest[href]:hover, .badge-twitch-lightest[href]:focus {
+    color: #212529;
+    background-color: #c8aeff;
+}
+
+.bg-twitch-lightest {
+    background-color: #ebe1ff !important;
+}
+
+a.bg-twitch-lightest:hover, a.bg-twitch-lightest:focus,
+button.bg-twitch-lightest:hover,
+button.bg-twitch-lightest:focus {
+    background-color: #c8aeff !important;
+}
+
+.border-twitch-lightest {
+    border-color: #ebe1ff !important;
+}
+
+.btn-twitch-lightest {
+    color: #212529;
+    background-color: #ebe1ff;
+    border-color: #ebe1ff;
+}
+
+.btn-twitch-lightest:hover {
+    color: #212529;
+    background-color: #d3bdff;
+    border-color: #c8aeff;
+}
+
+.btn-twitch-lightest:focus, .btn-twitch-lightest.focus {
+    box-shadow: 0 0 0 0.2rem rgba(235, 225, 255, 0.5);
+}
+
+.btn-twitch-lightest.disabled, .btn-twitch-lightest:disabled {
+    color: #212529;
+    background-color: #ebe1ff;
+    border-color: #ebe1ff;
+}
+
+.btn-twitch-lightest:not(:disabled):not(.disabled):active, .btn-twitch-lightest:not(:disabled):not(.disabled).active, .show > .btn-twitch-lightest.dropdown-toggle {
+    color: #212529;
+    background-color: #c8aeff;
+    border-color: #be9eff;
+}
+
+.btn-twitch-lightest:not(:disabled):not(.disabled):active:focus, .btn-twitch-lightest:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-lightest.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(235, 225, 255, 0.5);
+}
+
+.btn-outline-twitch-lightest {
+    color: #ebe1ff;
+    background-color: transparent;
+    border-color: #ebe1ff;
+}
+
+.btn-outline-twitch-lightest:hover {
+    color: #212529;
+    background-color: #ebe1ff;
+    border-color: #ebe1ff;
+}
+
+.btn-outline-twitch-lightest:focus, .btn-outline-twitch-lightest.focus {
+    box-shadow: 0 0 0 0.2rem rgba(235, 225, 255, 0.5);
+}
+
+.btn-outline-twitch-lightest.disabled, .btn-outline-twitch-lightest:disabled {
+    color: #ebe1ff;
+    background-color: transparent;
+}
+
+.btn-outline-twitch-lightest:not(:disabled):not(.disabled):active, .btn-outline-twitch-lightest:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch-lightest.dropdown-toggle {
+    color: #212529;
+    background-color: #ebe1ff;
+    border-color: #ebe1ff;
+}
+
+.btn-outline-twitch-lightest:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch-lightest:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch-lightest.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(235, 225, 255, 0.5);
+}
+
+.list-group-item-twitch-lightest {
+    color: #9966ff;
+    background-color: #165198ff;
+}
+
+.list-group-item-twitch-lightest.list-group-item-action:hover, .list-group-item-twitch-lightest.list-group-item-action:focus {
+    color: #9966ff;
+    background-color: #15417fff;
+}
+
+.list-group-item-twitch-lightest.list-group-item-action.active {
+    color: #212529;
+    background-color: #9966ff;
+    border-color: #9966ff;
+}
+
+.table-twitch-lightest,
+.table-twitch-lightest > th,
+.table-twitch-lightest > td {
+    background-color: #165198ff;
+}
+
+.table-hover .table-twitch-lightest:hover {
+    background-color: #15417fff;
+}
+
+.table-hover .table-twitch-lightest:hover > td,
+.table-hover .table-twitch-lightest:hover > th {
+    background-color: #15417fff;
+}
+
+.text-twitch-lightest {
+    color: #ebe1ff !important;
+}
+
+a.text-twitch-lightest:hover, a.text-twitch-lightest:focus {
+    color: #c8aeff !important;
+}
+
+/*------------------------------------
+- COLOR twitch-feint
+------------------------------------*/
+
+.alert-twitch-feint {
+    color: #b27fff;
+    background-color: #1761c6ff;
+    border-color: #16a1b1ff;
+}
+
+.alert-twitch-feint hr {
+    border-top-color: #15a198ff;
+}
+
+.alert-twitch-feint .alert-link {
+    color: #934cff;
+}
+
+.badge-twitch-feint {
+    color: #212529;
+    background-color: #fcfaff;
+}
+
+.badge-twitch-feint[href]:hover, .badge-twitch-feint[href]:focus {
+    color: #212529;
+    background-color: #ddc7ff;
+}
+
+.bg-twitch-feint {
+    background-color: #fcfaff !important;
+}
+
+a.bg-twitch-feint:hover, a.bg-twitch-feint:focus,
+button.bg-twitch-feint:hover,
+button.bg-twitch-feint:focus {
+    background-color: #ddc7ff !important;
+}
+
+.border-twitch-feint {
+    border-color: #fcfaff !important;
+}
+
+.btn-twitch-feint {
+    color: #212529;
+    background-color: #fcfaff;
+    border-color: #fcfaff;
+}
+
+.btn-twitch-feint:hover {
+    color: #212529;
+    background-color: #e6d6ff;
+    border-color: #ddc7ff;
+}
+
+.btn-twitch-feint:focus, .btn-twitch-feint.focus {
+    box-shadow: 0 0 0 0.2rem rgba(252, 250, 255, 0.5);
+}
+
+.btn-twitch-feint.disabled, .btn-twitch-feint:disabled {
+    color: #212529;
+    background-color: #fcfaff;
+    border-color: #fcfaff;
+}
+
+.btn-twitch-feint:not(:disabled):not(.disabled):active, .btn-twitch-feint:not(:disabled):not(.disabled).active, .show > .btn-twitch-feint.dropdown-toggle {
+    color: #212529;
+    background-color: #ddc7ff;
+    border-color: #d4b7ff;
+}
+
+.btn-twitch-feint:not(:disabled):not(.disabled):active:focus, .btn-twitch-feint:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-feint.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(252, 250, 255, 0.5);
+}
+
+.btn-outline-twitch-feint {
+    color: #fcfaff;
+    background-color: transparent;
+    border-color: #fcfaff;
+}
+
+.btn-outline-twitch-feint:hover {
+    color: #212529;
+    background-color: #fcfaff;
+    border-color: #fcfaff;
+}
+
+.btn-outline-twitch-feint:focus, .btn-outline-twitch-feint.focus {
+    box-shadow: 0 0 0 0.2rem rgba(252, 250, 255, 0.5);
+}
+
+.btn-outline-twitch-feint.disabled, .btn-outline-twitch-feint:disabled {
+    color: #fcfaff;
+    background-color: transparent;
+}
+
+.btn-outline-twitch-feint:not(:disabled):not(.disabled):active, .btn-outline-twitch-feint:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch-feint.dropdown-toggle {
+    color: #212529;
+    background-color: #fcfaff;
+    border-color: #fcfaff;
+}
+
+.btn-outline-twitch-feint:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch-feint:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch-feint.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(252, 250, 255, 0.5);
+}
+
+.list-group-item-twitch-feint {
+    color: #b27fff;
+    background-color: #16a1b1ff;
+}
+
+.list-group-item-twitch-feint.list-group-item-action:hover, .list-group-item-twitch-feint.list-group-item-action:focus {
+    color: #b27fff;
+    background-color: #15a198ff;
+}
+
+.list-group-item-twitch-feint.list-group-item-action.active {
+    color: #212529;
+    background-color: #b27fff;
+    border-color: #b27fff;
+}
+
+.table-twitch-feint,
+.table-twitch-feint > th,
+.table-twitch-feint > td {
+    background-color: #16a1b1ff;
+}
+
+.table-hover .table-twitch-feint:hover {
+    background-color: #15a198ff;
+}
+
+.table-hover .table-twitch-feint:hover > td,
+.table-hover .table-twitch-feint:hover > th {
+    background-color: #15a198ff;
+}
+
+.text-twitch-feint {
+    color: #fcfaff !important;
+}
+
+a.text-twitch-feint:hover, a.text-twitch-feint:focus {
+    color: #ddc7ff !important;
+}

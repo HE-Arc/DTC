@@ -16,6 +16,12 @@
   font-size: 1.5rem;
 }
 
+.card-title-login {
+  margin-bottom: 1.8rem;
+  font-weight: 320;
+  font-size: 1.8rem;
+}
+
 .card-signin .card-img-left {
   width: 45%;
   /* Link to your background image using in the property below! */
@@ -103,11 +109,10 @@
   color: #777;
 }
 
-.btn-twitch {
-  color: white;
-  background-color: #a835ea;
-}
-
 .cursor-pointer {
   cursor: pointer;
+}
+
+.border-twitch {
+  border: 2px solid #cea9ff;
 }
