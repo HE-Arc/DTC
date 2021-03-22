@@ -58,10 +58,16 @@ class LoggingIn(NotAuthView):
     template_name = "dtcapp/logging_in.html"
 
 
-class UserCreateView(NotAuthView):
+class UserCreateView(generic.CreateView):
     model = User
     form_class = SignUpForm
     success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super(UserCreateView, self).get(request, *args, **kwargs)
+
 
     def get_initial(self):
         initial = super(UserCreateView, self).get_initial()
