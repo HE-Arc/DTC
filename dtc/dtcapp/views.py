@@ -33,15 +33,27 @@ class UserCreateView(generic.CreateView):
     form_class=SignUpForm
     success_url = reverse_lazy('home')
 
+    def get(self,request):
+        try:
+            self.username = self.request.session['twitch_name']
+            self.email = self.request.session['email']
+            self.picture = self.request.session['profile_image_url']
+            self.id_twitch = self.request.session['twitch_id']
+            self.pictureURL = self.request.session['profile_image_url']
+        
+        except KeyError:
+            messages.error(self.request,'Twitch connection failed.')
+            return redirect('index')
+
     def get_initial(self):
         initial = super(UserCreateView, self).get_initial()
         initial = initial.copy()
-
-        initial['username'] =  self.request.session['twitch_name']
-        initial['email'] = self.request.session['email']
-        initial['picture'] = self.request.session['profile_image_url']
-        initial['id_twitch']=self.request.session['twitch_id']
-        initial['pictureURL'] = self.request.session['profile_image_url']
+               
+        initial['username'] =  self.username
+        initial['email'] = self.email
+        initial['picture'] = self.picture
+        initial['id_twitch']= self.id_twitch
+        initial['pictureURL'] = self.pictureURL
 
         return initial
 
@@ -68,7 +80,7 @@ def signup(request):
 
         return redirect('user-create')
     
-    messages.error('Twitch connection failed.')
+    messages.error(request,'Twitch connection failed.')
     return redirect('index')
 
 
