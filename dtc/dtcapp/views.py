@@ -60,9 +60,14 @@ class UserCreateView(generic.CreateView):
     def form_valid(self, form):
         #Create User ?
         #TODO:Check if id_twitch is still the same than in session
-        form.instance.set_password(form.cleaned_data['password'])
 
-        return super(UserCreateView, self).form_valid(form)
+        if form.cleaned_data['id_twitch'] == self.id_twitch:  
+            form.instance.set_password(form.cleaned_data['password'])
+
+            return super(UserCreateView, self).form_valid(form)
+        else:
+            messages.error(self.request,'ID Twitch has been changed.')
+            return redirect('user-create')
         
 
 def signup(request):
