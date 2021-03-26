@@ -1,4 +1,4 @@
-  /*
+/*
   twitch-feint :      #fcfaff;
   twitch-lightest :   #ebe1ff;
   twitch-light :      #cea9ff;
@@ -13,18 +13,22 @@
   twitch-gray-dark:    #624289;
   */
 
-  .index-top {
-    z-index: 1;
-  }
-  
-  .border-twitch {
-    border: 0.15em solid #cea9ff;
-  }
-  
-  .dropdown-item:hover {
-    background-color: #fcfaff;
-  }
-  
-  .dropdown-item:active {
-    background-color: #b072ff;
-  }
+.index-top {
+  z-index: 1;
+}
+
+.border-twitch {
+  border: 0.15em solid;
+}
+
+.dropdown-item:hover {
+  background-color: #f4ecff;
+}
+
+.dropdown-item:active {
+  background-color: #b072ff;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}

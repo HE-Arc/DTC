@@ -10,29 +10,22 @@ from django.contrib import messages
 
 from .forms import SignUpForm
 
-from django.contrib.auth import login as loginto
-from django.contrib.auth import logout as logoutof
+from django.contrib.auth import login as log_into
+from django.contrib.auth import logout as logout_of
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_protect
 
-# Create your views here.
+# Special base View classes
 
-def index(request):
-    context = {}
 
-    # Cannot access the main index page if authenticated already
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        return render(request, 'dtcapp/index.html', context)
-    
 class AuthView(generic.TemplateView):
     """A base View class inheriting from TemplateView to allow access only when authenticated."""
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('logging_in')
+            return redirect('login')
         return super(AuthView, self).get(request, *args, **kwargs)
+
 
 class NotAuthView(generic.TemplateView):
     """A base View class inheriting from TemplateView to allow access only when NOT authenticated."""
@@ -41,6 +34,18 @@ class NotAuthView(generic.TemplateView):
         if request.user.is_authenticated:
             return redirect('home')
         return super(NotAuthView, self).get(request, *args, **kwargs)
+
+
+# Views
+
+def index(request):
+
+    # Cannot access the main index page if authenticated already
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        return render(request, 'dtcapp/index.html')
+
 
 class Home(AuthView):
     template_name = "dtcapp/home.html"
@@ -54,10 +59,6 @@ class Subscribe(generic.TemplateView):
     template_name = "dtcapp/subscribe.html"
 
 
-class LoggingIn(NotAuthView):
-    template_name = "dtcapp/logging_in.html"
-
-
 class UserCreateView(generic.CreateView):
     model = User
     form_class = SignUpForm
@@ -67,7 +68,6 @@ class UserCreateView(generic.CreateView):
         if request.user.is_authenticated:
             return redirect('home')
         return super(UserCreateView, self).get(request, *args, **kwargs)
-
 
     def get_initial(self):
         initial = super(UserCreateView, self).get_initial()
@@ -113,22 +113,34 @@ def signup(request):
 
 
 def login(request):
-    user = authenticate(
-        username=request.POST['username'], password=request.POST['password'])
 
-    if user is not None:
-        loginto(request, user)
-        return redirect('home')
-    else:
-        return redirect('index')
+    if request.method == 'POST':
 
+        user = authenticate(
+            username=request.POST['username'], password=request.POST['password'])
 
+        if user is not None:
+            log_into(request, user)
+            return redirect('home')
+        else:
+            return redirect('index')
+
+    elif request.method == 'GET':
+
+        # Cannot access the login page if authenticated already
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            return render(request, 'dtcapp/login.html')
+
+            
 def logout(request):
 
     if request.user.is_authenticated:
-        logoutof(request)
-    
+        logout_of(request)
+
     return redirect('index')
+
 
 class TwitchTest(AuthView):
     template_name = "dtcapp/test-twitch.html"
