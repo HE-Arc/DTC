@@ -32,3 +32,13 @@
 .cursor-pointer:hover {
   cursor: pointer;
 }
+
+.nav-pp {
+  width: 2.8rem;
+  border-radius: 50%;
+}
+
+.yo {
+  display:flex;
+  align-items: center;
+}
