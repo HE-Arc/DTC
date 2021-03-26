@@ -38,7 +38,16 @@
   border-radius: 50%;
 }
 
-.yo {
+.centering {
   display:flex;
   align-items: center;
+}
+
+.custom-active {
+  color: #5200bd !important;
+  font-weight: 580;
+}
+
+.color-twitch {
+  color: rgb(92, 92, 92) !important;
 }

@@ -55,8 +55,8 @@ class Profile(AuthView):
     template_name = "dtcapp/profile.html"
 
 
-class Subscribe(generic.TemplateView):
-    template_name = "dtcapp/subscribe.html"
+class Subscriptions(AuthView):
+    template_name = "dtcapp/subcriptions.html"
 
 
 class UserCreateView(generic.CreateView):
@@ -133,7 +133,7 @@ def login(request):
         else:
             return render(request, 'dtcapp/login.html')
 
-            
+
 def logout(request):
 
     if request.user.is_authenticated:
