@@ -8,8 +8,10 @@
     {% load static %}
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
+    {% block styles %}{% endblock %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/colors.css' %}">
     <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
     {% block styles %}
@@ -25,7 +27,7 @@
 <div class="my-container">
 
     {# Navbar #}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-twitch-feint border-twitch border-twitch-lightest border-top-0 border-right-0 border-left-0 index-top">
 
         {% if not user.is_authenticated %}
         <div class="w-100 d-flex justify-content-center">
