@@ -2,9 +2,27 @@
 
 {% block title %}Home{% endblock %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'dtcapp/home.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<h1>Home</h1>
+
+<div id="following">
+    {% for streamer in follows %}
+    <div class="streamer">
+        <img src="{{streamer.image}}">
+        <p>{{streamer.name}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div id="clips">
+    <h1>Home</h1>
+</div>
 
 {% endblock %}
 

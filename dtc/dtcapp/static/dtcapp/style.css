@@ -111,3 +111,21 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+body,html{
+  height: 100%;
+}
+
+/* CONTAINER */
+.my-container { 
+  display: table;
+  width:100%;
+  height: 100%;
+}
+.content { 
+  display: table-row; 
+  height: 100%; 
+}
+.content-body { 
+  display: table-cell;
+}

@@ -45,6 +45,13 @@ class NotAuthView(generic.TemplateView):
 class Home(AuthView):
     template_name = "dtcapp/home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['follows'] = self.request.user.Follows.all()
+
+        return context
+
 
 class Profile(AuthView):
     template_name = "dtcapp/profile.html"
