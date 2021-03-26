@@ -11,12 +11,16 @@
 {% block content %}
 
 
-<div id="following">
+<div id="following" class="bg-twitch">
     {% for streamer in follows %}
-    <div class="streamer">
-        <img src="{{streamer.image}}">
-        <p>{{streamer.name}}</p>
-    </div>
+    <form method="post" action="{% url 'switch-following' %}">
+        {% csrf_token %}
+        <input type="hidden" name="following_id" value="{{ streamer.following_id }}">
+        <div class="streamer" onClick="javascript:this.parentNode.submit();">
+            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:"activated,unactivated" }}">
+            <p>{{streamer.name}}</p>
+        </div>
+    </form>
     {% endfor %}
 </div>
 

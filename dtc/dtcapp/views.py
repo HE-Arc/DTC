@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic, View
 from django.urls import reverse_lazy
 
-from .models import User
+from .models import User, Following
 
 from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
 
@@ -14,6 +14,9 @@ from django.contrib.auth import login as loginto
 from django.contrib.auth import logout as logoutof
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_protect
+
+
+from django.db.models import F
 
 # Create your views here.
 
@@ -48,9 +51,30 @@ class Home(AuthView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['follows'] = self.request.user.Follows.all()
+        context['follows'] = self.request.user.Follows.annotate(
+            activated=F('following__activated'),
+            following_id=F('following')
+        )
 
         return context
+
+class FollowingSwitch(AuthView):
+
+    def post(self, request):
+        following_id = request.POST['following_id']
+        print(f"following_id:{following_id}")
+        if following_id is not None:
+            following = Following.objects.get(pk=following_id)
+            if following is not None:
+                following.activated = not following.activated
+                following.save()
+                #TODO: with message success ?
+                return redirect('home')
+            else:
+                pass #TODO: redirect with error message !!!
+        else:
+            pass #TODO: redirect with error message !!!
+
 
 
 class Profile(AuthView):

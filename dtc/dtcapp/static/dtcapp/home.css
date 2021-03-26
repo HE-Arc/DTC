@@ -2,7 +2,7 @@
     overflow-y:scroll;
     height:100%;
     float:left;
-    min-width: 10em;
+    min-width: 7em;
     background-color: blue;
 }
 #clips{
@@ -14,11 +14,23 @@
 display:block;
 text-align: center;
 }
-.streamer p{
 
+.streamer:hover{
+    background-color: #b072ff;
+    cursor:pointer;
+}
+.streamer p{
+    color:white;
 }
 .streamer img{
     border-radius: 50%;
+
+    width:4em;
+}
+
+.activated{
     border: 5px solid green;
-    width:6em;
+}
+.unactivated{
+    border: 5px solid gray;
 }
