@@ -15,14 +15,13 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('home/', views.Home.as_view(), name='home'),
     path('profile/', views.Profile.as_view(), name='profile'),
-    path('logging_in/', views.LoggingIn.as_view(), name='logging_in'),
-    path('subscribe/', views.Subscribe.as_view(), name='subscribe'),
+    path('subscriptions/', views.Subscriptions.as_view(), name='subscriptions'),
     path('login/',views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('twitch/',views.TwitchTest.as_view(),name='twitch'),
     path('signup/',views.signup,name='signup'),
     path('user/new',views.UserCreateView.as_view(),name='user-create'),
-    path('switch_following',views.FollowingSwitch.as_view(),name='switch-following')
+    path('switch_following',views.FollowingSwitch.as_view(),name='switch-following'),
 ]
     
     
