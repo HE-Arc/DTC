@@ -1,0 +1,25 @@
+.text-center {
+    text-align: center;
+}
+
+/* Image transform */
+
+.profile-pic {
+    border-radius: 50%;
+    width: 15rem;
+}
+
+.panel-group {
+  margin: auto;
+  /*margin:50px 400px 50px 400px;*/
+  max-width: 100%;
+}
+
+.panel-heading {
+  background-color: transparent !important;
+}
+
+#accordion {
+  background-color: transparent;
+  max-width: 100%;
+}

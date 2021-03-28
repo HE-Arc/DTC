@@ -1,9 +1,55 @@
 {% extends 'dtcapp/base.html' %}
 
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'dtcapp/profile.css' %}">
+{% endblock %}
+
 {% block title %}Profile{% endblock %}
 
 {% block content %}
 
-<h1>Profile</h1>
+<div class="d-flex justify-content-center p-5">
+    <div class="flex-column">
+        <div class="text-center">
+
+            <img class="profile-pic" src="{{ user.pictureURL }}" />
+
+            <div class="text-center text-user h1 m-0 mt-2 font-weight-bold">{{ user.username }}</div>
+            <div class="text-center h4 m-0 mb-3">{{ user.email }}</div>
+
+            <a class=" btn btn-lg btn-twitch btn-block text-uppercase mb-4" href="{% url 'subscriptions' %}">
+                My subscriptions
+            </a>
+            <a class="btn btn-lg btn-twitch-lighter btn-block text-uppercase" role="button" data-toggle="collapse"
+                data-parent="#accordion" href="#collapseOne" aria-expanded="" aria-controls="collapseOne">
+                My liked clips
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+
+            <p>
+                <iframe
+                    src="https://clips.twitch.tv/embed?clip=OpenRespectfulMoosePipeHype-Ggs3M9Oq_-X0_aza&parent=localhost&parent=127.0.0.1"
+                    height="400" width="300" allowfullscreen="false">
+                </iframe>
+            </p>
+
+            <p>
+                <iframe
+                    src="https://clips.twitch.tv/embed?clip=OpenRespectfulMoosePipeHype-Ggs3M9Oq_-X0_aza&parent=localhost&parent=127.0.0.1"
+                    height="400" width="300" allowfullscreen="false">
+                </iframe>
+            </p>
+            
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

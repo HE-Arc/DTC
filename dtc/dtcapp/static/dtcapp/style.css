@@ -51,3 +51,7 @@
 .color-twitch {
   color: rgb(92, 92, 92) !important;
 }
+
+.btn-lg {
+  font-weight: 700;
+}
