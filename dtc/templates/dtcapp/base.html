@@ -22,59 +22,67 @@
 </head>
 
 <body>
+    <div class="my-container">
 
-    {# Navbar #}
-    <nav class="navbar navbar-expand-lg navbar-light bg-twitch-feint px-3
+        {# Navbar #}
+        <nav class="navbar navbar-expand-lg navbar-light bg-twitch-feint px-3
         {% if request.path != '/' and request.path != '/index/' %}
             border-twitch border-twitch-light border-top-0 border-right-0 border-left-0 index-top px-5 py-3
         {% endif %}">
 
-        <div class="{% if not user.is_authenticated %} w-100 d-flex justify-content-center {% endif %}">
-            <a class="navbar-nav navbar-brand p-0 mr-0 {% if request.path != '/' and request.path != '/index/' %} mr-5 {% endif %}"
-                href="{% url 'index' %}">
-                <img src="{%static 'images/logo_dtc.png' %}" width="80rem" height="80rem"
-                    class="d-inline-block align-top">
-            </a>
-        </div>
-
-        {% if user.is_authenticated %}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-            <div class="navbar-nav">
-                <a class="nav-item nav-link mr-5 {% if request.path == '/home/' %} custom-active {% else %} color-twitch {% endif %}"
-                    href="{% url 'home' %}">Home</a>
-                <a class="nav-item nav-link {% if request.path == '/subscriptions/' %} custom-active {% else %} color-twitch {% endif %}"
-                    href="{% url 'subscriptions' %}">Subscriptions</a>
-            </div>
-
-            <div class="navbar-nav nav-item dropdown ml-auto cursor-pointer">
-                <a class="nav-link dropdown-toggle centering {% if request.path == '/profile/' %} custom-active {% else %} color-twitch {% endif %}"
-                    id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="nav-pp mr-2" src="{{user.pictureURL}}">{{user.username}}
+            <div class="{% if not user.is_authenticated %} w-100 d-flex justify-content-center {% endif %}">
+                <a class="navbar-nav navbar-brand p-0 mr-0 {% if request.path != '/' and request.path != '/index/' %} mr-5 {% endif %}"
+                    href="{% url 'index' %}">
+                    <img src="{%static 'images/logo_dtc.png' %}" width="80rem" height="80rem"
+                        class="d-inline-block align-top">
                 </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                    <a class="dropdown-item {% if request.path == '/profile/' %} bg-twitch-lightest {% endif %}"
-                        href="{% url 'profile' %}">My profile</a>
-                    <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
-                </div>
             </div>
 
-        </div>
-        {% endif %}
+            {% if user.is_authenticated %}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    </nav>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-    {# Content #}
-    {% block content %}{% endblock content %}
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link mr-5 {% if request.path == '/home/' %} custom-active {% else %} color-twitch {% endif %}"
+                        href="{% url 'home' %}">Home</a>
+                    <a class="nav-item nav-link {% if request.path == '/subscriptions/' %} custom-active {% else %} color-twitch {% endif %}"
+                        href="{% url 'subscriptions' %}">Subscriptions</a>
+                </div>
 
-    {# Footer #}
-    <p style="position: fixed; text-align: center; left: 0; bottom: 0; width:100%; height: 2.5rem;">2021 @HE-ARC</p>
+                <div class="navbar-nav nav-item dropdown ml-auto cursor-pointer">
+                    <a class="nav-link dropdown-toggle centering {% if request.path == '/profile/' %} custom-active {% else %} color-twitch {% endif %}"
+                        id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="nav-pp mr-2" src="{{user.pictureURL}}">{{user.username}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info"
+                        aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item {% if request.path == '/profile/' %} bg-twitch-lightest {% endif %}"
+                            href="{% url 'profile' %}">My profile</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                    </div>
+                </div>
 
+            </div>
+            {% endif %}
+
+        </nav>
+
+        {# Content #}
+        <section class="content">
+            <div class="content-body">
+                {% block content %}{% endblock content %}
+            </div>
+        </section>
+
+        {# Footer #}
+        <footer class="footer">
+            <p style="text-align: center; height: 2.5rem;">2021 @HE-ARC</p>
+        </footer>
+    </div>
 </body>
 
 </html>

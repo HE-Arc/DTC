@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic, View
 from django.urls import reverse_lazy
 
-from .models import User
+from .models import User, Following
 
 from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
 
@@ -15,7 +15,10 @@ from django.contrib.auth import logout as logout_of
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_protect
 
-# Special base View classes
+
+from django.db.models import F
+
+# Create your views here.
 
 
 class AuthView(generic.TemplateView):
@@ -50,6 +53,34 @@ def index(request):
 class Home(AuthView):
     template_name = "dtcapp/home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['follows'] = self.request.user.Follows.annotate(
+            activated=F('following__activated'),
+            following_id=F('following')
+        )
+
+        return context
+
+class FollowingSwitch(AuthView):
+
+    def post(self, request):
+        following_id = request.POST['following_id']
+        print(f"following_id:{following_id}")
+        if following_id is not None:
+            following = Following.objects.get(pk=following_id)
+            if following is not None:
+                following.activated = not following.activated
+                following.save()
+                #TODO: with message success ?
+                return redirect('home')
+            else:
+                pass #TODO: redirect with error message !!!
+        else:
+            pass #TODO: redirect with error message !!!
+
+
 
 class Profile(AuthView):
     template_name = "dtcapp/profile.html"
@@ -64,30 +95,60 @@ class UserCreateView(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('home')
 
-    def get(self, request, *args, **kwargs):
+    def get(self,request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('home')
+        try:
+            self.username = self.request.session['twitch_name']
+            self.email = self.request.session['email']
+            self.picture = self.request.session['profile_image_url']
+            self.id_twitch = self.request.session['twitch_id']
+            self.pictureURL = self.request.session['profile_image_url']
+        
+        except KeyError:
+            messages.error(self.request,'Twitch connection failed.')
+            return redirect('index')
+        
         return super(UserCreateView, self).get(request, *args, **kwargs)
 
     def get_initial(self):
         initial = super(UserCreateView, self).get_initial()
         initial = initial.copy()
 
-        initial['username'] = self.request.session['twitch_name']
-        initial['email'] = self.request.session['email']
-        initial['picture'] = self.request.session['profile_image_url']
-        initial['id_twitch'] = self.request.session['twitch_id']
-        initial['pictureURL'] = self.request.session['profile_image_url']
+        self.username = self.request.session['twitch_name']
+        self.email = self.request.session['email']
+        self.picture = self.request.session['profile_image_url']
+        self.id_twitch = self.request.session['twitch_id']
+        self.pictureURL = self.request.session['profile_image_url']
+
+        initial['username'] =  self.username  
+        initial['email'] = self.email
+        initial['picture'] = self.picture
+        initial['id_twitch']= self.id_twitch
+        initial['pictureURL'] = self.pictureURL
 
         return initial
 
     def form_valid(self, form):
-        # Create User ?
-        # TODO:Check if id_twitch is still the same than in session
-        form.instance.set_password(form.cleaned_data['password'])
+        #Create User ?
+        #TODO:Check if id_twitch is still the same than in session
 
-        return super(UserCreateView, self).form_valid(form)
+        if form.cleaned_data['id_twitch'] == self.id_twitch:  
+            form.instance.set_password(form.cleaned_data['password'])
 
+            user = form.save(commit=False)
+
+            user.save()
+
+            user.update_follows(self.request.session['followers_ids'])
+
+            log_into(self.request, user)
+
+            return super(UserCreateView, self).form_valid(form)
+        else:
+            messages.error(self.request,'ID Twitch has been changed.')
+            return redirect('user-create')
+        
 
 def signup(request):
 
@@ -106,9 +167,13 @@ def signup(request):
         request.session['email'] = twitch_user.user['email']
         request.session['twitch_id'] = twitch_user.get_user_id()
 
-        return redirect('user-create')
+        followers = twitch_user.get_user_following()
+        followers_ids = [follower['to_id'] for follower in followers['data']]
+        request.session['followers_ids'] = followers_ids
 
-    messages.error('Twitch connection failed.')
+        return redirect('user-create')
+    
+    messages.error(request,'Twitch connection failed.')
     return redirect('index')
 
 
@@ -123,7 +188,7 @@ def login(request):
             log_into(request, user)
             return redirect('home')
         else:
-            return redirect('index')
+            return redirect('login')
 
     elif request.method == 'GET':
 

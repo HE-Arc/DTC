@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import UserManager
 
+from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
+
 # Create your models here.
 class LikedClip(models.Model):
     clipURL = models.CharField(max_length=250)
@@ -37,6 +39,25 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD='username'
     REQUIRED_FIELDS=['password','email','pictureURL','id_twitch']
+
+    def update_follows(self,followers_ids):
+        self.Follows.through.objects.all().delete()
+        if len(followers_ids) > 0:
+            twitchClip = TwitchClip(followers_ids)
+            names_followed, pictures_followed = twitchClip.get_infos_followed()
+
+            for i, flw_id in enumerate(followers_ids):
+                streamer_db = Streamer.objects.filter(id_streamer=flw_id).first()
+                streamer = None
+                if not streamer_db is not None:
+                    streamer = Streamer(name=names_followed[i],image=pictures_followed[i],id_streamer=flw_id)
+                    streamer.save()
+                else:
+                    streamer = streamer_db
+
+                self.Follows.add(streamer)
+
+            
 
     def __str__(self):
         return self.username

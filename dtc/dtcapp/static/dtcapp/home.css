@@ -1,0 +1,36 @@
+#following{
+    overflow-y:scroll;
+    height:100%;
+    float:left;
+    min-width: 7em;
+    background-color: blue;
+}
+#clips{
+    background-color: red;
+    height:100%;
+}
+
+.streamer{
+display:block;
+text-align: center;
+}
+
+.streamer:hover{
+    background-color: #b072ff;
+    cursor:pointer;
+}
+.streamer p{
+    color:white;
+}
+.streamer img{
+    border-radius: 50%;
+
+    width:4em;
+}
+
+.activated{
+    border: 5px solid green;
+}
+.unactivated{
+    border: 5px solid gray;
+}

@@ -21,6 +21,7 @@ urlpatterns = [
     path('twitch/',views.TwitchTest.as_view(),name='twitch'),
     path('signup/',views.signup,name='signup'),
     path('user/new',views.UserCreateView.as_view(),name='user-create'),
+    path('switch_following',views.FollowingSwitch.as_view(),name='switch-following'),
 ]
     
     

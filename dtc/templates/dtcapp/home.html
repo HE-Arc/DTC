@@ -2,9 +2,31 @@
 
 {% block title %}Home{% endblock %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'dtcapp/home.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<h1>Home</h1>
+
+<div id="following" class="bg-twitch">
+    {% for streamer in follows %}
+    <form method="post" action="{% url 'switch-following' %}">
+        {% csrf_token %}
+        <input type="hidden" name="following_id" value="{{ streamer.following_id }}">
+        <div class="streamer" onClick="javascript:this.parentNode.submit();">
+            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:"activated,unactivated" }}">
+            <p>{{streamer.name}}</p>
+        </div>
+    </form>
+    {% endfor %}
+</div>
+
+<div id="clips">
+    <h1>Home</h1>
+</div>
 
 {% endblock %}
 
