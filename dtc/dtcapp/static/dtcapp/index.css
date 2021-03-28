@@ -45,7 +45,6 @@ body {
 }
 
 .background-image {
-  z-index: -1;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -61,6 +60,11 @@ body {
 
 .cover-container {
   max-width: 48em;
+}
+
+.index-top-rel {
+  z-index: 1 !important;
+  position: relative;
 }
 
 /*

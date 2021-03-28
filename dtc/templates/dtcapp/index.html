@@ -10,10 +10,9 @@
 
 {% block content %}
 
-<div class="cover-container d-flex h-100 p-3 mx-auto flex-column index-top">
-    <div class="background-image"></div>
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto"></header>
-    <main role="main" class="inner cover">
+    <main role="main" class="inner cover index-top-rel">
         <h1 class="cover-heading font-weight-bold display-4 mb-4">Daily Twitch Clips</h1>
         <p class="lead mb-0">
             Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and
@@ -23,7 +22,7 @@
         <hr class="mt-4 mb-5" />
 
         <div class="lead mr-5">
-            <h5 class="card-title mb-4">You have an account ?</h5>
+            <h5 class="card-title mb-4 index-top">You have an account ?</h5>
             <a class="btn btn-lg btn-twitch-feint btn-block text-uppercase" href="{% url 'login' %}">
                 Connect now
             </a>
@@ -37,6 +36,7 @@
             </a>
         </div>
     </main>
+    <div class="background-image"></div>
     <footer class="mastfoot mt-auto"></footer>
 </div>
 

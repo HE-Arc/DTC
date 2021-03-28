@@ -13,10 +13,6 @@
   twitch-gray-dark:    #624289;
   */
 
-.index-top {
-  z-index: 1;
-}
-
 .border-twitch {
   border: 0.15em solid;
 }
@@ -61,15 +57,18 @@ body,html {
 }
 
 /* CONTAINER */
+
 .my-container { 
   display: table;
   width:100%;
   height: 100%;
 }
+
 .content { 
   display: table-row; 
-  height: 100%; 
+  height: 100%;
 }
+
 .content-body { 
   display: table-cell;
 }

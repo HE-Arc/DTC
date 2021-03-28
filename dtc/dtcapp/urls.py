@@ -11,19 +11,15 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
     path('index/', views.index, name='index'),
+    path('', views.index, name='index'),
     path('home/', views.Home.as_view(), name='home'),
     path('profile/', views.Profile.as_view(), name='profile'),
     path('subscriptions/', views.Subscriptions.as_view(), name='subscriptions'),
-    path('login/',views.login, name='login'),
+    path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('twitch/',views.TwitchTest.as_view(),name='twitch'),
-    path('signup/',views.signup,name='signup'),
-    path('user/new',views.UserCreateView.as_view(),name='user-create'),
-    path('switch_following',views.FollowingSwitch.as_view(),name='switch-following'),
+    path('twitch/', views.TwitchTest.as_view(), name='twitch'),
+    path('signup/', views.signup, name='signup'),
+    path('user/new', views.UserCreateView.as_view(), name='user-create'),
+    path('switch_following', views.FollowingSwitch.as_view(), name='switch-following'),
 ]
-    
-    
-    
-    
