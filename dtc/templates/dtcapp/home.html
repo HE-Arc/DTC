@@ -25,7 +25,19 @@
 </div>
 
 <div id="clips">
-    <h1>Home</h1>
+    <h1 class="d-inline">My Feed</h1>
+
+    <div class="btn-group dropleft float-right">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Top&nbsp;<span class="top-twitch">{{top}}</span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'home-top' top='24H' %}">Top <span class="top-twitch">24H</span></a>
+            <a class="dropdown-item" href="{% url 'home-top' top='7D' %}">Top <span class="top-twitch">7D</span></a>
+            <a class="dropdown-item" href="{% url 'home-top' top='ALL' %}">Top <span class="top-twitch">ALL</span></a>
+        </div>
+      </div>
+
 </div>
 
 {% endblock %}

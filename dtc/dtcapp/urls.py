@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib import admin
 
 from . import views
@@ -14,6 +14,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('', views.index, name='index'),
     path('home/', views.Home.as_view(), name='home'),
+    re_path(r'^home/(?P<top>24H|7D|ALL)/$', views.Home.as_view(), name='home-top'),
     path('profile/', views.Profile.as_view(), name='profile'),
     path('subscriptions/', views.Subscriptions.as_view(), name='subscriptions'),
     path('login/', views.login, name='login'),

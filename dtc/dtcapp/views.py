@@ -61,6 +61,11 @@ class Home(AuthView):
             following_id=F('following')
         )
 
+        top = self.kwargs.get('top', None)
+        if top is None:
+            top='24H'
+        context['top'] = top
+
         return context
 
 class FollowingSwitch(AuthView):
