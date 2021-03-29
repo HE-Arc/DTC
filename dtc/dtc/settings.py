@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,8 +26,10 @@ SECRET_KEY = '7ef=2&rnh1vybfgz(o_5n+9ao6mnl%8*=b-3yh)!0viq6=c21@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'dtc.srvz-webapp.he-arc.ch',
+]
 
 # Application definition
 
@@ -123,15 +126,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = '/var/www/dtc/static'
 STATIC_URL = '/static/'
 
 # User
 AUTH_USER_MODEL = 'dtcapp.User'
 
 # Twitch environments variables
-import environ
-env=environ.Env()
+env = environ.Env()
 environ.Env.read_env()
 
-TWITCH_PUBLIC_KEY=env('TWITCH_PUBLIC_KEY')
-TWITCH_PRIVATE_KEY=env('TWITCH_PRIVATE_KEY')
+TWITCH_PUBLIC_KEY = env('TWITCH_PUBLIC_KEY')
+TWITCH_PRIVATE_KEY = env('TWITCH_PRIVATE_KEY')
