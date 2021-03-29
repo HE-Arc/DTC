@@ -38,6 +38,17 @@
         </div>
       </div>
 
+      <div id="allClips">
+      {% for clip in clips %}
+      <div class="container-clip">
+        <iframe class="responsive-iframe"
+            src="{{clip}}"
+            allowfullscreen="false">
+        </iframe>
+      </div>
+      {% endfor %}
+    </div>
+
 </div>
 
 {% endblock %}

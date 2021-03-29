@@ -56,15 +56,39 @@ class Home(AuthView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['follows'] = self.request.user.Follows.annotate(
+        # -- FOLLOWS --
+        follows =  self.request.user.Follows.annotate(
             activated=F('following__activated'),
             following_id=F('following')
         )
+        context['follows'] = follows
 
-        top = self.kwargs.get('top', None)
-        if top is None:
-            top='24H'
-        context['top'] = top
+        # -- TOP --
+        txt_top = self.kwargs.get('top', None)
+        if txt_top is None:
+            txt_top='24H'
+        context['top'] = txt_top
+
+        # -- CLIPS --
+        top = TwitchTop.string_to_top(txt_top)
+
+        follow_ids = list(follows.filter(activated=True).values_list('id_streamer',flat=True))
+        
+        twitchClip = TwitchClip(follow_ids)
+
+        clips = twitchClip.get_clips_from_all_followed(twitchTop=top)
+        list_clip_urls = []
+
+        '''
+        for clip_data in clips.values(): #by streamer
+            for clip in clip_data['data']: #by clip
+                list_clip_urls.append(f"{clip['embed_url']}&parent=localhost&parent=127.0.0.1")
+                print(clip['embed_url'])
+        '''
+
+        list_clip_urls.append("https://clips.twitch.tv/embed?clip=FamousKitschyElephantRickroll-jzd7ZqFBGOX8n6Mh&parent=localhost&parent=127.0.0.1")
+        list_clip_urls.append("https://clips.twitch.tv/embed?clip=ExpensiveDelightfulScorpionStrawBeary-6r9WE45noXxZKwt3&parent=localhost&parent=127.0.0.1")
+        context['clips'] = list_clip_urls
 
         return context
 

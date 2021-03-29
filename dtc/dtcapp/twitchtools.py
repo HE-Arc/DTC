@@ -64,6 +64,17 @@ class TwitchTop(Enum):
     LAST_7D=auto()
     ALL_TIME=auto()
 
+    @staticmethod
+    def string_to_top(text):
+        if text=='24H':
+            return TwitchTop.LAST_24H
+        elif text=='7D':
+            return TwitchTop.LAST_7D
+        elif text=="ALL":
+            return TwitchTop.ALL_TIME
+        
+        return TwitchTop.LAST_24H # default
+
 class TwitchClip:
     MAX_CLIPS=2
     def __init__(self, followed_ids):
@@ -91,7 +102,7 @@ class TwitchClip:
             start = end - date_diff
 
         return start,end
-
+    
     def get_clips_from_channel(self,broadcaster_id,twitchTop=TwitchTop.LAST_24H,n_clips=MAX_CLIPS,ended_at=None):
         start, end = self.get_datetimes(twitchTop)
         if ended_at is not None:
