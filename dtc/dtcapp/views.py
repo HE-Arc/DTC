@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 from .models import User, Following
 
-from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
+from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop, TwitchToken
 
 from django.contrib import messages
 
@@ -47,7 +47,15 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('home')
     else:
-        return render(request, 'dtcapp/index.html')
+        context = {}
+        id, link = TwitchToken.get_link()
+        if id is None:
+            context['error'] = True
+        else:     
+            context['error'] = False
+            request.session['id_token_generator'] = id
+            context['link'] = link
+        return render(request, 'dtcapp/index.html',context)
 
 
 class Home(AuthView):
@@ -185,7 +193,7 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect('home')
 
-    twitch_user = TwitchUser()
+    twitch_user = TwitchUser(id_generator=request.session['id_token_generator'])
 
     if twitch_user.token is not None and twitch_user.refresh_token:
         request.session['token'] = twitch_user.token
@@ -241,7 +249,7 @@ class TwitchTest(AuthView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        '''
         # Maybe not create TwitchUser always to get the following (because it's saved in database)
         # only use it if user press sync button
         twitchUser = TwitchUser(
@@ -265,4 +273,5 @@ class TwitchTest(AuthView):
 
         clips = twitchClip.get_clips_from_all_followed()
         print(clips)
+        '''
         return context

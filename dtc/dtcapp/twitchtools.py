@@ -8,36 +8,105 @@ from django.conf import settings
 from enum import Enum, auto
 from datetime import datetime, timedelta
 
-class TwitchUser:
-    TARGET_SCORE = [AuthScope.USER_READ_EMAIL]
-    MAX_FOLLOWS = 3
-    def __init__(self,token=None, refresh_token=None, user=None):
-        self.twitch = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
-        if token is not None and refresh_token is not None:
-            self.token = token
-            self.refresh_token = refresh_token
-            self.twitch.set_user_authentication(self.token, TwitchUser.TARGET_SCORE, self.refresh_token)
-        else:
-            self.token,self.refresh_token = self._twitch_auth()
+import base64
+import urllib.request, json
+import time
 
-        if self.token is not None and self.refresh_token is not None:
-            if user is not None:
-                self.user = user
+class TwitchToken:
+    APPLICATION_NAME='DailyTWClip'
+    TWITCH_GENERATOR='https://twitchtokengenerator.com/api/create/'
+    TWITCH_STATUS='https://twitchtokengenerator.com/api/status/'
+    SCOPES='user:read:email'
+    
+
+    #PING REQUEST
+    TIMES=10
+    WAITING_SECONDS=1
+
+    @staticmethod
+    def _get_name_base64():
+        message = TwitchToken.APPLICATION_NAME
+        message_bytes = message.encode('ascii')
+        base64_bytes = base64.b64encode(message_bytes)
+        base64_message = base64_bytes.decode('ascii')
+        return base64_message
+        
+    @staticmethod
+    def get_link():
+        link_generator = TwitchToken.TWITCH_GENERATOR+TwitchToken._get_name_base64()+'/'+TwitchToken.SCOPES
+        print(link_generator)
+        with urllib.request.urlopen(link_generator) as url:
+            data = json.loads(url.read().decode())
+
+            if data['success']:
+                id = data['id']
+                link = data['message']
+                return id, link
             else:
-                self.user = self._get_user_info()
-        else:
-            self.user = None
+                return None, None
 
-        #App authentification
-        self.twitch.authenticate_app([])
+    @staticmethod
+    def get_token(id):
+        link_generator = TwitchToken.TWITCH_STATUS+id
+        times = TwitchToken.TIMES 
+        while times > 0:
+            print(f'BEFORE REQUEST {times}')
+            url = urllib.request.urlopen(link_generator)
+            print(f'BEFORE READING {times}')
+            data = json.loads(url.read().decode())
+            print(f'BEFORE CLOSING {times}')
+            url.close()
+            if data['success'] is False:
+                times = times - 1
+                time.sleep(TwitchToken.WAITING_SECONDS)
+            else:
+                token = data['token']
+                refresh_token = data['refresh']
+                client_id = data['client_id']
+                return token, refresh_token, client_id
+
+        return None, None, None
+
+
+
+class TwitchUser:
+    TARGET_SCOPE = [AuthScope.USER_READ_EMAIL]
+    MAX_FOLLOWS = 3
+    def __init__(self,id_generator=None):
+        self.twitch = None
+        self.id_generator = id_generator
+
+        self.twitch = None
+        self.twitch2 = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
+        self.twitch2.authenticate_app([])
+
+        self.token,self.refresh_token = self._twitch_auth()
+        self.user = self._get_user_info()
+        #print(f'\n\n\nYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO : {self.user}\n\n\n')
+
+        
 
     def _twitch_auth(self):
-        auth = UserAuthenticator(self.twitch, TwitchUser.TARGET_SCORE, force_verify=False)
+        #auth = UserAuthenticator(self.twitch, TwitchUser.TARGET_SCOPE, force_verify=False)
         # this will open your default browser and prompt you with the twitch verification website
-        token, refresh_token = auth.authenticate()
-        print(f'TOKEN : {token}')
-        # add User authentication
-        self.twitch.set_user_authentication(token, TwitchUser.TARGET_SCORE, refresh_token)
+        #token, refresh_token = auth.authenticate()
+
+
+        if self.id_generator is not None:
+            token, refresh_token, client_id = TwitchToken.get_token(self.id_generator)
+            print(f'TOKEN : {token} | REFRESH_TOKEN : {refresh_token}')
+            if client_id is not None:
+                self.twitch = Twitch(client_id,settings.TWITCH_PRIVATE_KEY)
+                # add User authentication
+                self.twitch.set_user_authentication(token, TwitchUser.TARGET_SCOPE, refresh_token)
+                # add App authentification
+                
+            else:
+                token = None
+                refresh_token = None     
+        else:
+            token = None
+            refresh_token = None
 
         return token, refresh_token
 
@@ -47,7 +116,11 @@ class TwitchUser:
         Returns:
             dict: User info None if not authentificated.
         """
-        return self.twitch.get_users()['data'][0]
+
+        if self.twitch is not None:
+            return self.twitch.get_users()['data'][0]
+        else:
+            return None
 
     def get_user_id(self):
         if self.user is not None:
@@ -56,7 +129,7 @@ class TwitchUser:
     
     def get_user_following(self):
         if self.user is not None:
-            return self.twitch.get_users_follows(from_id=self.get_user_id(), first=TwitchUser.MAX_FOLLOWS)
+            return self.twitch2.get_users_follows(from_id=self.get_user_id(), first=TwitchUser.MAX_FOLLOWS)
 
 
 class TwitchTop(Enum):
