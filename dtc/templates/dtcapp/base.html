@@ -10,8 +10,10 @@
     {% bootstrap_javascript jquery='full' %}
 
     {% block styles %}{% endblock %}
-    <script src="{% static 'dtcapp/script.js' %}"></script>
 
+    <script src="{% static 'dtcapp/script.js' %}"></script>
+    {% block scripts %}{% endblock %}
+    
     <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/colors.css' %}">
     <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">

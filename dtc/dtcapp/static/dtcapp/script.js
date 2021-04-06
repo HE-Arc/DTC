@@ -4,9 +4,9 @@
  * 
  * @param {HTMLAnchorElement} a The a element that has been clicked
  */
- function load(a) {
+function load(a) {
     iframe = a.nextElementSibling; //Because in HTMl order, the next element is the iframe
     iframe.setAttribute('src', iframe.getAttribute('data-value'));
 
-    a.style.display="none";
+    a.style.display = "none";
 }

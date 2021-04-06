@@ -8,7 +8,7 @@ from .twitchtools import TwitchUser, TwitchClip, TwitchTop
 # Create your models here.
 class LikedClip(models.Model):
     clipURL = models.CharField(max_length=250)
-    id_clip = models.CharField(max_length=30)
+    id_clip = models.CharField(max_length=30,unique=True)
 
     def __str__(self):
         return self.clipURL

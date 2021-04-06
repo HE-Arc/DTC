@@ -19,6 +19,7 @@ urlpatterns = [
     path('subscriptions/', views.Subscriptions.as_view(), name='subscriptions'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
+    path('like/', views.Like.as_view(), name='like'),
     path('twitch/', views.TwitchTest.as_view(), name='twitch'),
     path('signup/', views.signup, name='signup'),
     path('user/new', views.UserCreateView.as_view(), name='user-create'),

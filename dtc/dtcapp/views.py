@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic, View
 from django.urls import reverse_lazy
 
-from .models import User, Following
+from .models import User, Following, LikedClip
 
 from .twitchtools import TwitchUser, TwitchClip, TwitchTop, TwitchToken
 
@@ -16,10 +16,11 @@ from django.contrib.auth import logout as logout_of
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_protect
 
+from django.db import IntegrityError
 from django.db.models import F
+from django.http import JsonResponse
 
 # Create your views here.
-
 
 class AuthView(generic.TemplateView):
     """A base View class inheriting from TemplateView to allow access only when authenticated."""
@@ -37,7 +38,6 @@ class NotAuthView(generic.TemplateView):
         if request.user.is_authenticated:
             return redirect('home')
         return super(NotAuthView, self).get(request, *args, **kwargs)
-
 
 # Views
 
@@ -90,6 +90,7 @@ class Home(AuthView):
         for clip_data in clips.values(): #by streamer
             for clip in clip_data['data']: #by clip
                 list_clips.append({
+                    'id' : clip['id'],
                     'title' : f"{clip['title']}" if len(clip['title']) < 35 else f"{clip['title'][:30]} ...",
                     'embed_url' : f"{clip['embed_url']}&parent={settings.CLIP_PARENT}",
                     'thumbnail_url' : f"{clip['thumbnail_url']}"
@@ -122,6 +123,22 @@ class FollowingSwitch(AuthView):
         else:
             pass #TODO: redirect with error message !!!
 
+
+class Like(AuthView):
+
+    def post(self, request):
+        id_clip = request.POST['id_clip']
+        clipURL = request.POST['clipURL']
+
+        try:
+            likedclip = LikedClip(clipURL = clipURL, id_clip = id_clip)
+            likedclip.save()
+
+            data = {'id_clip':id_clip, 'clipURL':clipURL}
+            return JsonResponse(data, safe=False)
+            
+        except IntegrityError:
+            pass
 
 
 class Profile(AuthView):
