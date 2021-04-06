@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import UserManager
 
-from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
+from .twitchtools import TwitchUser, TwitchClip, TwitchTop
 
 # Create your models here.
 class LikedClip(models.Model):

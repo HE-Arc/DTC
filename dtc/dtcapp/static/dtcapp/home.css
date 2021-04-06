@@ -1,59 +1,79 @@
-#following{
-    overflow-y:scroll;
-    height:100%;
-    float:left;
-    min-width: 7em;
-    background-color: blue;
-}
-#clips{
-    background-color: red;
-    height:100%;
+#following {
+  overflow-y: scroll;
+  height: 100%;
+  float: left;
+  min-width: 7em;
+  background-color: blue;
 }
 
-.streamer{
-display:block;
-text-align: center;
+#clips {
+  background-color: red;
+  height: 100%;
 }
 
-.streamer:hover{
-    background-color: #b072ff;
-    cursor:pointer;
-}
-.streamer p{
-    color:white;
-}
-.streamer img{
-    border-radius: 50%;
-
-    width:4em;
+.streamer {
+  display: block;
+  text-align: center;
 }
 
-.activated{
-    border: 5px solid green;
-}
-.unactivated{
-    border: 5px solid gray;
+.streamer:hover {
+  background-color: #b072ff;
+  cursor: pointer;
 }
 
+.streamer p {
+  color: white;
+}
 
-.container-clip{
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+.streamer img {
+  border-radius: 50%;
+  width: 4em;
+}
+
+.activated {
+  border: 5px solid green;
+}
+
+.unactivated {
+  border: 5px solid gray;
+}
+
+.container-clip {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
 .responsive-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width:100%;
-    height: 100%;
-    border: none;
-  }
-
-#allClips{
-    width:50%;
-    margin:0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 1;
 }
+
+.index-2 {
+  z-index: 2;
+}
+
+#allClips {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* responsive size for title of clips */
+
+
+
+@media only screen and (min-width: 1249px) {
+  /* CSS that should be displayed if width is equal to or less than 991px and larger 
+     than 768px goes here */
+  .clip-title {
+    font-size: 1.4vw;
+  }
+}
+

@@ -72,3 +72,73 @@ body,html {
 .content-body { 
   display: table-cell;
 }
+
+.lh-0 {
+  line-height: 0;
+}
+
+/* Customed reversed twitch button */
+
+.btn-twitch-reversed {
+  color: #913efd;
+  background-color: #fff;
+  border-color: #913efd;
+  border : 3px solid;
+}
+
+.btn-twitch-reversed:hover {
+  color: #913efd;
+  background-color: #7c1afc;
+  border-color: #740bfc;
+}
+
+.btn-twitch-reversed:focus, .btn-twitch-reversed.focus {
+  box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.btn-twitch-reversed.disabled, .btn-twitch-reversed:disabled {
+  color: #913efd;
+  background-color: #fff;
+  border-color: #913efd;
+}
+
+.btn-twitch-reversed:not(:disabled):not(.disabled):active, .btn-twitch-reversed:not(:disabled):not(.disabled).active, .show > .btn-twitch-reversed.dropdown-toggle {
+  color: #913efd;
+  background-color: #740bfc;
+  border-color: #6c02f6;
+}
+
+.btn-twitch-reversed:not(:disabled):not(.disabled):active:focus, .btn-twitch-reversed:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-reversed.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.btn-outline-twitch {
+  color: #913efd;
+  background-color: transparent;
+  border-color: #913efd;
+}
+
+.btn-outline-twitch:hover {
+  color: #913efd;
+  background-color: #fff;
+  border-color: #913efd;
+}
+
+.btn-outline-twitch:focus, .btn-outline-twitch.focus {
+  box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}
+
+.btn-outline-twitch.disabled, .btn-outline-twitch:disabled {
+  color: #913efd;
+  background-color: transparent;
+}
+
+.btn-outline-twitch:not(:disabled):not(.disabled):active, .btn-outline-twitch:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch.dropdown-toggle {
+  color: #913efd;
+  background-color: #fff;
+  border-color: #913efd;
+}
+
+.btn-outline-twitch:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+}

@@ -4,9 +4,10 @@ from django.urls import reverse_lazy
 
 from .models import User, Following
 
-from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop, TwitchToken
+from .twitchtools import TwitchUser, TwitchClip, TwitchTop, TwitchToken
 
 from django.contrib import messages
+from django.conf import settings
 
 from .forms import SignUpForm
 
@@ -14,7 +15,6 @@ from django.contrib.auth import login as log_into
 from django.contrib.auth import logout as logout_of
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_protect
-
 
 from django.db.models import F
 
@@ -85,18 +85,23 @@ class Home(AuthView):
         twitchClip = TwitchClip(follow_ids)
 
         clips = twitchClip.get_clips_from_all_followed(twitchTop=top)
-        list_clip_urls = []
+        list_clips = []
 
-        '''
         for clip_data in clips.values(): #by streamer
             for clip in clip_data['data']: #by clip
-                list_clip_urls.append(f"{clip['embed_url']}&parent=localhost&parent=127.0.0.1")
-                print(clip['embed_url'])
-        '''
+                list_clips.append({
+                    'title' : f"{clip['title']}" if len(clip['title']) < 35 else f"{clip['title'][:30]} ...",
+                    'embed_url' : f"{clip['embed_url']}&parent={settings.CLIP_PARENT}",
+                    'thumbnail_url' : f"{clip['thumbnail_url']}"
+                    })
+                # print(clip['title'])
+                # print(clip['embed_url'])
+                # print(clip['thumbnail_url'])
 
-        list_clip_urls.append("https://clips.twitch.tv/embed?clip=FamousKitschyElephantRickroll-jzd7ZqFBGOX8n6Mh&parent=localhost&parent=127.0.0.1")
-        list_clip_urls.append("https://clips.twitch.tv/embed?clip=ExpensiveDelightfulScorpionStrawBeary-6r9WE45noXxZKwt3&parent=localhost&parent=127.0.0.1")
-        context['clips'] = list_clip_urls
+        # list_clip_urls.append("https://clips.twitch.tv/embed?clip=FamousKitschyElephantRickroll-jzd7ZqFBGOX8n6Mh&parent=localhost&parent=127.0.0.1")
+        # list_clip_urls.append("https://clips.twitch.tv/embed?clip=ExpensiveDelightfulScorpionStrawBeary-6r9WE45noXxZKwt3&parent=localhost&parent=127.0.0.1")
+
+        context['clips'] = list_clips
 
         return context
 
