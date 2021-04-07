@@ -69,6 +69,7 @@ class Home(AuthView):
             activated=F('following__activated'),
             following_id=F('following')
         )
+
         context['follows'] = follows
 
         # -- TOP --
@@ -104,6 +105,12 @@ class Home(AuthView):
 
         context['clips'] = list_clips
 
+        # -- LIKED CLIPS OF THE USER --
+
+        likedclip_id_clips = self.request.user.Likes.all().values_list('id_clip', flat=True)
+
+        context['likedclips'] = likedclip_id_clips
+
         return context
 
 class FollowingSwitch(AuthView):
@@ -124,22 +131,49 @@ class FollowingSwitch(AuthView):
             pass #TODO: redirect with error message !!!
 
 
+# User.objects.get(username=the_username).pk
+
 class Like(AuthView):
 
     def post(self, request):
+
         id_clip = request.POST['id_clip']
         clipURL = request.POST['clipURL']
 
-        try:
+        try: # Tries to save a new liked clip in the database
+
             likedclip = LikedClip(clipURL = clipURL, id_clip = id_clip)
             likedclip.save()
-
-            data = {'id_clip':id_clip, 'clipURL':clipURL}
-            return JsonResponse(data, safe=False)
             
-        except IntegrityError:
-            pass
+        except IntegrityError: # Chose to ignore the IntegrityError (if clip already exists in the LikedClip table)
 
+            pass # This Exception is thrown when already exists in table, we DON'T want this error to stop everything
+
+        except : # If it is another Exception than IntegrityError, we WANT this error to be caught and dealt with later
+            
+            return # Because it doesn't return anything, it allows the error to be detected later in the javascript
+
+        request.user.Likes.add(LikedClip.objects.get(id_clip = id_clip))
+        
+        data = {'action': 'like' }
+        return JsonResponse(data, safe=False)
+
+class Dislike(AuthView):
+
+    def post(self, request):
+
+        id_clip = request.POST['id_clip']
+        disliked_clip = LikedClip.objects.get(id_clip = id_clip)
+
+        nb_users = len(User.Likes.through.objects.all().filter(likedclip = disliked_clip)) # nb of users who liked this clip also
+
+        request.user.Likes.remove(LikedClip.objects.get(id_clip = id_clip))
+
+        if nb_users < 2 :
+            disliked_clip.delete()       
+
+        data = {'action': 'dislike' }
+        return JsonResponse(data, safe=False)
 
 class Profile(AuthView):
     template_name = "dtcapp/profile.html"

@@ -53,14 +53,16 @@
                 <iframe class="responsive-iframe" data-value="{{clip.embed_url}}" allowfullscreen="false"></iframe>
             </div>
 
-            <form method="post" action="{% url 'like' %}" id="like_form" role="form" class="like_form">
+            <form method="post"
+                action="{% if clip.id in likedclips %} {% url 'dislike' %} {% else %} {% url 'like' %} {% endif %}"
+                id="like_form" role="form" class="like_form">
                 {% csrf_token %}
-                <p name="output-message"></p>
+                <p name="output-message" class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success"
+                    style="display:none;"></p>
                 <input type="hidden" name="id_clip" id="id_clip" value="{{ clip.id }}">
                 <input type="hidden" name="clipURL" id="clipURL" value="{{ clip.embed_url }}">
-                <input class="btn btn-lg btn-weight btn-twitch-reversed text-uppercase my-1 p-2 lh-0" type="submit">
-                <i class="far fa-thumbs-up"></i>
-                </input>
+                <input type="submit" value="&#xf164" name="btn_like"
+                    class="btn btn-lg btn-weight text-uppercase my-1 p-2 lh-0 far fa-thumbs-up {% if clip.id in likedclips %} btn-twitch {% else %} btn-twitch-reversed {% endif %}">
             </form>
 
         </div>
@@ -86,31 +88,54 @@
             formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
             output_message = like_form.querySelector('p[name="output-message"]');
+            btn_like = like_form.querySelector('input[name="btn_like"]');
 
-            fetch("{% url 'like' %}", {
-                method: 'POST',
+            chosen_action = like_form.action;
+
+            console.log(chosen_action);
+
+            fetch(chosen_action, {
+                method: like_form.method,
                 body: formData
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Success:', data);
-                    output_message.innerText = "Your enquiry has been sent!"
-                    setTimeout(function () {
-                        output_message.style.display = "none";
-                    }, 3000);
-                    setTimeout(function () {
-                        output_message.style.display = "";
-                    }, 1000);
+
+                    if (data.action === 'like') {
+                        output_message.innerText = "The clip has been added to your liked list !"
+                        btn_like.classList.remove("btn-twitch-reversed");
+                        btn_like.classList.add("btn-twitch");
+                        like_form.action = "{% url 'dislike' %}";
+                        setTimeout(function () {
+                            output_message.style.display = "none";
+                        }, 3000);
+                        setTimeout(function () {
+                            output_message.style.display = "";
+                        }, 500);
+                    }
+                    else if (data.action === 'dislike') {
+                        output_message.innerText = "The clip has been removed from your liked list !"
+                        btn_like.classList.remove("btn-twitch");
+                        btn_like.classList.add("btn-twitch-reversed");
+                        like_form.action = "{% url 'like' %}";
+                        setTimeout(function () {
+                            output_message.style.display = "none";
+                        }, 3000);
+                        setTimeout(function () {
+                            output_message.style.display = "";
+                        }, 500);
+                    }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    output_message.innerText = "Sorry! There was an error submitting your enquiry. "
+                    output_message.innerText = "There has been a problem ! Retry again later."
                     setTimeout(function () {
                         output_message.style.display = "none";
+                        output_message.classList.remove("bg-danger");
                     }, 3000);
                     setTimeout(function () {
                         output_message.style.display = "";
-                    }, 1000);
+                        output_message.classList.add("bg-danger");
+                    }, 500);
                 });
         });
     }

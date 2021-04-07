@@ -20,6 +20,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('like/', views.Like.as_view(), name='like'),
+    path('dislike/', views.Dislike.as_view(), name='dislike'),
     path('twitch/', views.TwitchTest.as_view(), name='twitch'),
     path('signup/', views.signup, name='signup'),
     path('user/new', views.UserCreateView.as_view(), name='user-create'),
