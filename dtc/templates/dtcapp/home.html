@@ -8,13 +8,9 @@
 <link rel="stylesheet" href="{% static 'dtcapp/home.css' %}">
 {% endblock %}
 
-{% block scripts %}
-<script src="{% static 'dtcapp/home.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 
-<div id="following" class="bg-twitch">
+<div id="following" class="bg-twitch pt-2">
     {% for streamer in follows %}
     <form method="post" action="{% url 'switch-following' %}">
         {% csrf_token %}
@@ -28,8 +24,6 @@
 </div>
 
 <div id="clips">
-    <h1 class="d-inline">My Feed</h1>
-
     <div class="btn-group dropleft float-right">
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -42,9 +36,9 @@
         </div>
     </div>
 
-    <div id="allClips">
+    <div id="allClips" class="pt-5">
         {% for clip in clips %}
-        <div class="text-center mb-4 bg-twitch-feint">
+        <div class="text-center mb-4 bg-twitch-lightest border border-dark">
             <div class="font-weight-bold text-twitch clip-title py-1">{{clip.title}}</div>
             <div class="container-clip">
                 <a class="btn responsive-iframe index-2 p-0" onclick="load(this)">
@@ -61,6 +55,8 @@
                     style="display:none;"></p>
                 <input type="hidden" name="id_clip" id="id_clip" value="{{ clip.id }}">
                 <input type="hidden" name="clipURL" id="clipURL" value="{{ clip.embed_url }}">
+                <input type="hidden" name="title_clip" id="title_clip" value="{{ clip.title }}">
+                <input type="hidden" name="thumbnailURL_clip" id="thumbnailURL_clip" value="{{ clip.thumbnail_url }}">
                 <input type="submit" value="&#xf164" name="btn_like"
                     class="btn btn-lg btn-weight text-uppercase my-1 p-2 lh-0 far fa-thumbs-up {% if clip.id in likedclips %} btn-twitch {% else %} btn-twitch-reversed {% endif %}">
             </form>
@@ -80,19 +76,21 @@
 
             id_clip = like_form.querySelector('input[name="id_clip"]').value;
             clipURL = like_form.querySelector('input[name="clipURL"]').value;
+            title_clip = like_form.querySelector('input[name="title_clip"]').value;
+            thumbnailURL_clip = like_form.querySelector('input[name="thumbnailURL_clip"]').value;
 
             const formData = new FormData();
 
             formData.append('id_clip', id_clip);
             formData.append('clipURL', clipURL);
+            formData.append('title_clip', title_clip);
+            formData.append('thumbnailURL_clip', thumbnailURL_clip);
             formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
             output_message = like_form.querySelector('p[name="output-message"]');
             btn_like = like_form.querySelector('input[name="btn_like"]');
 
             chosen_action = like_form.action;
-
-            console.log(chosen_action);
 
             fetch(chosen_action, {
                 method: like_form.method,

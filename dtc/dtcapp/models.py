@@ -9,6 +9,8 @@ from .twitchtools import TwitchUser, TwitchClip, TwitchTop
 class LikedClip(models.Model):
     clipURL = models.CharField(max_length=250)
     id_clip = models.CharField(max_length=50,unique=True)
+    title_clip = models.CharField(max_length=50)
+    thumbnailURL_clip = models.CharField(max_length=250)
 
     def __str__(self):
         return self.clipURL

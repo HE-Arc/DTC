@@ -81,7 +81,7 @@ class Home(AuthView):
         # -- CLIPS --
         top = TwitchTop.string_to_top(txt_top)
 
-        follow_ids = list(follows.filter(activated=True).values_list('id_streamer',flat=True))
+        follow_ids = list(follows.filter(activated=True).values_list('id_streamer', flat=True))
         
         twitchClip = TwitchClip(follow_ids)
 
@@ -139,18 +139,20 @@ class Like(AuthView):
 
         id_clip = request.POST['id_clip']
         clipURL = request.POST['clipURL']
+        title_clip = request.POST['title_clip']
+        thumbnailURL_clip = request.POST['thumbnailURL_clip']
 
-        try: # Tries to save a new liked clip in the database
+        try : # Tries to save a new liked clip in the database
 
-            likedclip = LikedClip(clipURL = clipURL, id_clip = id_clip)
+            likedclip = LikedClip(clipURL = clipURL, id_clip = id_clip, title_clip = title_clip, thumbnailURL_clip = thumbnailURL_clip)
             likedclip.save()
             
-        except IntegrityError: # Chose to ignore the IntegrityError (if clip already exists in the LikedClip table)
+        except IntegrityError : # Chose to ignore the IntegrityError (if clip already exists in the LikedClip table)
 
             pass # This Exception is thrown when already exists in table, we DON'T want this error to stop everything
 
         except : # If it is another Exception than IntegrityError, we WANT this error to be caught and dealt with later
-            
+
             return # Because it doesn't return anything, it allows the error to be detected later in the javascript
 
         request.user.Likes.add(LikedClip.objects.get(id_clip = id_clip))
@@ -177,6 +179,22 @@ class Dislike(AuthView):
 
 class Profile(AuthView):
     template_name = "dtcapp/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        list_likedclips = self.request.user.Likes.all()
+
+        context['likedclips'] = list_likedclips
+
+        for clip in list_likedclips :
+
+            print(clip.title_clip)
+            print(clip.id_clip)
+            print(clip.thumbnailURL_clip)
+            print(clip.clipURL)
+
+        return context
 
 
 class Subscriptions(AuthView):
