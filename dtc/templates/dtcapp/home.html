@@ -25,7 +25,7 @@
         {% csrf_token %}
         <input type="hidden" name="following_id" value="{{ streamer.following_id }}">
         <div class="streamer" onClick="javascript:this.parentNode.submit();">
-            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:" activated,unactivated" }}">
+            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:" activated,unactivated" }}" loading="lazy">
             <p>{{streamer.name}}</p>
         </div>
     </form>
