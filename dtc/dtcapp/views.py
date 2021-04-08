@@ -135,6 +135,10 @@ class FollowingSwitch(AuthView):
 
 class Like(AuthView):
 
+    def get(self, request):
+
+        return redirect('home')
+
     def post(self, request):
 
         id_clip = request.POST['id_clip']
@@ -161,6 +165,10 @@ class Like(AuthView):
         return JsonResponse(data, safe=False)
 
 class Dislike(AuthView):
+
+    def get(self, request):
+
+        return redirect('home')
 
     def post(self, request):
 

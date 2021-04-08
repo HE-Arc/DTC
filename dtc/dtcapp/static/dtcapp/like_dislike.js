@@ -7,8 +7,6 @@ var alert_infos = [] // Array that have the informations of the alerts currently
  */
 function clearTimemouts() {
 
-    console.log(alert_infos)
-
     alert_infos.forEach(time => {
 
         clearInterval(time.timeout);
