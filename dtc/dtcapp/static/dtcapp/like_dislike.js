@@ -110,14 +110,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert_infos.push({
                         'timeout': setTimeout(function () {
                             output_message.classList.remove("bg-danger");
-                        }, 3000),
+                            clearTimemouts();
+                        }, 3200),
                         'message_element': output_message
                     });
                     alert_infos.push({
                         'timeout': setTimeout(function () {
                             output_message.style.display = "";
                             output_message.classList.add("bg-danger");
-                        }, 500),
+                        }, 200),
                         'message_element': output_message
                     });
                 });
