@@ -206,7 +206,7 @@ class Profile(AuthView):
 
 
 class Subscriptions(AuthView):
-    template_name = "dtcapp/subcriptions.html"
+    template_name = "dtcapp/subscriptions.html"
 
 
 class UserCreateView(generic.CreateView):
