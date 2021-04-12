@@ -149,14 +149,16 @@ class Like(AuthView):
         try : # Tries to save a new liked clip in the database
 
             likedclip = LikedClip(clipURL = clipURL, id_clip = id_clip, title_clip = title_clip, thumbnailURL_clip = thumbnailURL_clip)
+            print(f'guillaume le fdp')
             likedclip.save()
+            print(f'guillaume le fdp2')
             
         except IntegrityError : # Chose to ignore the IntegrityError (if clip already exists in the LikedClip table)
 
             pass # This Exception is thrown when already exists in table, we DON'T want this error to stop everything
 
         except : # If it is another Exception than IntegrityError, we WANT this error to be caught and dealt with later
-
+            
             return # Because it doesn't return anything, it allows the error to be detected later in the javascript
 
         request.user.Likes.add(LikedClip.objects.get(id_clip = id_clip))
