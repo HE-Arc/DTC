@@ -3,6 +3,7 @@ from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
 
 from django.conf import settings
+from django.shortcuts import render
 
 #For TwichClips
 from enum import Enum, auto
@@ -67,12 +68,26 @@ class TwitchToken:
 
         return None, None, None
 
+    @staticmethod
+    def redirect_with_link(request,link_redirect):
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            context = {}
+            id, link = TwitchToken.get_link()
+            if id is None:
+                context['error'] = True
+            else:     
+                context['error'] = False
+                request.session['id_token_generator'] = id
+                context['link'] = link
+            return render(request, link_redirect, context)
 
 
 class TwitchUser:
     TARGET_SCOPE = [AuthScope.USER_READ_EMAIL]
     MAX_FOLLOWS = 3
-    def __init__(self,id_generator=None):
+    def __init__(self,id_generator=None, id_user=None):
         self.twitch = None
         self.id_generator = id_generator
 
@@ -80,8 +95,12 @@ class TwitchUser:
         self.twitch2 = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
         self.twitch2.authenticate_app([])
 
-        self.token,self.refresh_token = self._twitch_auth()
-        self.user = self._get_user_info()
+        if id_user is None:
+            self.token,self.refresh_token = self._twitch_auth()
+            self.user = self._get_user_info()
+        else:
+            self.user = {}
+            self.user['id'] = id_user
         #print(f'\n\n\nYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO : {self.user}\n\n\n')
 
         
@@ -126,7 +145,7 @@ class TwitchUser:
         if self.user is not None:
             #print(self.user)
             return self.user['id']
-    
+
     def get_user_following(self):
         if self.user is not None:
             return self.twitch2.get_users_follows(from_id=self.get_user_id(), first=TwitchUser.MAX_FOLLOWS)
@@ -158,9 +177,20 @@ class TwitchClip:
 
     def get_infos_followed(self):
         users_followed = self.twitch.get_users(user_ids =self.followed_ids)
-        names_followed =[user['display_name'] for user in users_followed['data']]
-        pictures_followed = [user['profile_image_url'] for user in users_followed['data']]
-        return names_followed, pictures_followed
+
+        followers = {}
+
+        for user in users_followed['data']:
+            user_id = user['id']
+            user_name = user['display_name']
+            user_picture = user['profile_image_url']
+            followers[user_id] = {'name':user_name,'picture':user_picture}
+
+        return followers
+
+        #names_followed =[user['display_name'] for user in users_followed['data']]
+        #pictures_followed = [user['profile_image_url'] for user in users_followed['data']]
+        #return names_followed, pictures_followed
 
     def get_datetimes(self,twitchTop):
         end = datetime.today()

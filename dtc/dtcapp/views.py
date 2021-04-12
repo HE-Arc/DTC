@@ -44,6 +44,8 @@ class NotAuthView(generic.TemplateView):
 def index(request):
 
     # Cannot access the main index page if authenticated already
+    return TwitchToken.redirect_with_link(request,'dtcapp/index.html')
+    '''
     if request.user.is_authenticated:
         return redirect('home')
     else:
@@ -56,6 +58,7 @@ def index(request):
             request.session['id_token_generator'] = id
             context['link'] = link
         return render(request, 'dtcapp/index.html',context)
+    '''
 
 
 class Home(AuthView):
@@ -156,7 +159,7 @@ class Like(AuthView):
             pass # This Exception is thrown when already exists in table, we DON'T want this error to stop everything
 
         except : # If it is another Exception than IntegrityError, we WANT this error to be caught and dealt with later
-
+            
             return # Because it doesn't return anything, it allows the error to be detected later in the javascript
 
         request.user.Likes.add(LikedClip.objects.get(id_clip = id_clip))
@@ -307,16 +310,20 @@ def login(request):
             log_into(request, user)
             return redirect('home')
         else:
-            return redirect('login')
+            return TwitchToken.redirect_with_link(request,'dtcapp/login.html')
 
     elif request.method == 'GET':
+        return TwitchToken.redirect_with_link(request,'dtcapp/login.html')
 
-        # Cannot access the login page if authenticated already
-        if request.user.is_authenticated:
-            return redirect('home')
-        else:
-            return render(request, 'dtcapp/login.html')
 
+class SyncFollows(AuthView):
+    def get(self, request):
+        user = request.user
+        twitch_user = TwitchUser(id_user=user.id_twitch)
+        followers = twitch_user.get_user_following()
+        followers_ids = [follower['to_id'] for follower in followers['data']]
+        user.update_follows(followers_ids)
+        return redirect('home')
 
 def logout(request):
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'dtcapp',
     'bootstrap4',
     'fontawesome-free',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
