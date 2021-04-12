@@ -74,3 +74,20 @@
   }
 }
 
+@media only screen and (max-width: 1249px) {
+  .a-size {
+    font-size: 3rem !important;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .a-size {
+    font-size: 2rem !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .a-size {
+    font-size: 1.5rem !important;
+  }
+}
