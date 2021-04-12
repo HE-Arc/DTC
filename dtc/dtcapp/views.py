@@ -44,6 +44,8 @@ class NotAuthView(generic.TemplateView):
 def index(request):
 
     # Cannot access the main index page if authenticated already
+    return TwitchToken.redirect_with_link(request,'dtcapp/index.html')
+    '''
     if request.user.is_authenticated:
         return redirect('home')
     else:
@@ -56,6 +58,7 @@ def index(request):
             request.session['id_token_generator'] = id
             context['link'] = link
         return render(request, 'dtcapp/index.html',context)
+    '''
 
 
 class Home(AuthView):
@@ -149,9 +152,7 @@ class Like(AuthView):
         try : # Tries to save a new liked clip in the database
 
             likedclip = LikedClip(clipURL = clipURL, id_clip = id_clip, title_clip = title_clip, thumbnailURL_clip = thumbnailURL_clip)
-            print(f'guillaume le fdp')
             likedclip.save()
-            print(f'guillaume le fdp2')
             
         except IntegrityError : # Chose to ignore the IntegrityError (if clip already exists in the LikedClip table)
 
@@ -309,15 +310,10 @@ def login(request):
             log_into(request, user)
             return redirect('home')
         else:
-            return redirect('login')
+            return TwitchToken.redirect_with_link(request,'dtcapp/login.html')
 
     elif request.method == 'GET':
-
-        # Cannot access the login page if authenticated already
-        if request.user.is_authenticated:
-            return redirect('home')
-        else:
-            return render(request, 'dtcapp/login.html')
+        return TwitchToken.redirect_with_link(request,'dtcapp/login.html')
 
 
 def logout(request):

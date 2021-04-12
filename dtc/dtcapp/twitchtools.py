@@ -3,6 +3,7 @@ from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
 
 from django.conf import settings
+from django.shortcuts import render
 
 #For TwichClips
 from enum import Enum, auto
@@ -67,6 +68,20 @@ class TwitchToken:
 
         return None, None, None
 
+    @staticmethod
+    def redirect_with_link(request,link_redirect):
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            context = {}
+            id, link = TwitchToken.get_link()
+            if id is None:
+                context['error'] = True
+            else:     
+                context['error'] = False
+                request.session['id_token_generator'] = id
+                context['link'] = link
+            return render(request, link_redirect, context)
 
 
 class TwitchUser:
