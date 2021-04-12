@@ -316,6 +316,15 @@ def login(request):
         return TwitchToken.redirect_with_link(request,'dtcapp/login.html')
 
 
+class SyncFollows(AuthView):
+    def get(self, request):
+        user = request.user
+        twitch_user = TwitchUser(id_user=user.id_twitch)
+        followers = twitch_user.get_user_following()
+        followers_ids = [follower['to_id'] for follower in followers['data']]
+        user.update_follows(followers_ids)
+        return redirect('home')
+
 def logout(request):
 
     if request.user.is_authenticated:

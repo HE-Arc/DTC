@@ -43,9 +43,22 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS=['password','email','pictureURL','id_twitch']
 
     def update_follows(self,followers_ids):
-        self.Follows.through.objects.all().delete()
+        self.Follows.through.objects.filter(user_id=self.id).delete()
         if len(followers_ids) > 0:
             twitchClip = TwitchClip(followers_ids)
+
+            followers = twitchClip.get_infos_followed()
+            for streamer_id, follow in followers.items():
+                streamer_db = Streamer.objects.filter(id_streamer=streamer_id).first()
+                streamer = None
+                if not streamer_db is not None:
+                    streamer = Streamer(name=follow['name'],image=follow['picture'],id_streamer=streamer_id)
+                    streamer.save()
+                else:
+                    streamer = streamer_db
+
+                self.Follows.add(streamer)
+            '''
             names_followed, pictures_followed = twitchClip.get_infos_followed()
 
             for i, flw_id in enumerate(followers_ids):
@@ -58,7 +71,7 @@ class User(AbstractBaseUser):
                     streamer = streamer_db
 
                 self.Follows.add(streamer)
-
+            '''
             
 
     def __str__(self):

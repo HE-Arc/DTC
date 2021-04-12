@@ -25,4 +25,5 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('user/new', views.UserCreateView.as_view(), name='user-create'),
     path('switch_following', views.FollowingSwitch.as_view(), name='switch-following'),
+    path('syncfollows/',views.SyncFollows.as_view(),name='sync-follows')
 ]
