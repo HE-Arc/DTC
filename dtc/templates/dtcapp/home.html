@@ -25,7 +25,8 @@
         {% csrf_token %}
         <input type="hidden" name="following_id" value="{{ streamer.following_id }}">
         <div class="streamer" onClick="javascript:this.parentNode.submit();">
-            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:" activated,unactivated" }}" loading="lazy">
+            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:" activated,unactivated" }}"
+                loading="lazy">
             <p>{{streamer.name}}</p>
         </div>
     </form>
@@ -33,6 +34,7 @@
 </div>
 
 <div id="clips">
+
     <div class="btn-group dropleft float-right">
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -46,7 +48,16 @@
     </div>
 
     <div id="allClips" class="pt-5">
+
+        {% if not follows %}
+
+        <div class="text-center align-middle text-twitch text-uppercase display-4 font-weight-bold w-100">
+            You are not following any streamer on Twitch yet !
+        </div>
+
+        {% else %}
         {% for clip in clips %}
+
         <div class="text-center mb-4 bg-twitch-lightest border border-dark">
             <div class="font-weight-bold text-twitch clip-title py-1">{{clip.title}}</div>
             <div class="container-clip">
@@ -71,7 +82,10 @@
             </form>
 
         </div>
+
         {% endfor %}
+        {% endif %}
+
     </div>
 
 </div>
