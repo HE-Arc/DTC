@@ -81,9 +81,11 @@
         </section>
 
         {# Footer #}
+        {% if request.path != '/' and request.path != '/index/' %}
         <footer class="footer bg-twitch-feint border-twitch border-twitch-light py-3 border-bottom-0 border-right-0 border-left-0">
             <p class="d-flex align-items-center justify-content-center m-0 text-twitch font-weight-bold text-uppercase">2021 &copy; He-Arc</p>
         </footer>
+        {% endif %}
     </div>
 </body>
 
