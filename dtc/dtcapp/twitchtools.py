@@ -3,7 +3,7 @@ from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
 
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 #For TwichClips
 from enum import Enum, auto
