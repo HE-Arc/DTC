@@ -39,7 +39,7 @@
 <div id="clips">
 
     <div class="btn-group dropleft float-right">
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+        <button class="btn btn-twitch font-weight-bold btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Top&nbsp;<span class="top-twitch">{{top}}</span>
         </button>
@@ -61,7 +61,7 @@
         {% else %}
         {% for clip in clips %}
 
-        <div class="text-center mb-4 bg-twitch-lightest border border-dark">
+        <div class="text-center mb-4 bg-twitch-lightest border-035 border-twitch-lighter">
             <div class="font-weight-bold text-twitch clip-title py-1">{{clip.title}}</div>
             <div class="container-clip">
                 <a class="btn responsive-iframe index-2 p-0" onclick="load(this)">

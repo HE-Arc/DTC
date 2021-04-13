@@ -13,8 +13,12 @@
   twitch-gray-dark:    #624289;
   */
 
-.border-twitch {
+.border-015 {
   border: 0.15em solid;
+}
+
+.border-035 {
+  border: 0.35em solid;
 }
 
 .dropdown-item:hover {

@@ -30,7 +30,7 @@
         {# Navbar #}
         {% if request.path != '/' and request.path != '/index/' %}
         <nav
-            class="navbar navbar-expand-lg navbar-light bg-twitch-feint px-3 border-twitch border-twitch-light border-top-0 border-right-0 border-left-0 px-5 py-3">
+            class="navbar navbar-expand-lg navbar-light bg-twitch-feint-not-too-feint px-3 border-015 border-twitch-light border-top-0 border-right-0 border-left-0 px-5 py-3">
 
             <div class="{% if not user.is_authenticated %} w-100 d-flex justify-content-center {% endif %}">
                 <a class="navbar-nav navbar-brand p-0 mr-0 mr-5" href="{% url 'index' %}">
@@ -75,14 +75,14 @@
 
         {# Content #}
         <section class="content">
-            <div class="content-body">
+            <div class="content-body bg-twitch-feint">
                 {% block content %}{% endblock content %}
             </div>
         </section>
 
         {# Footer #}
         {% if request.path != '/' and request.path != '/index/' %}
-        <footer class="footer bg-twitch-feint border-twitch border-twitch-light py-3 border-bottom-0 border-right-0 border-left-0">
+        <footer class="footer bg-twitch-feint-not-too-feint border-015 border-twitch-light py-4 border-bottom-0 border-right-0 border-left-0">
             <p class="d-flex align-items-center justify-content-center m-0 text-twitch font-weight-bold text-uppercase">2021 &copy; He-Arc</p>
         </footer>
         {% endif %}

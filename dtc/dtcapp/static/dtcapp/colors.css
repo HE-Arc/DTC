@@ -1441,3 +1441,147 @@ button.bg-twitch-gray-dark:focus {
 a.text-twitch-gray-dark:hover, a.text-twitch-gray-dark:focus {
     color: #3c2b4f !important;
 }
+
+/*------------------------------------
+- COLOR twitch-feint-not-too-feint
+------------------------------------*/
+
+.alert-twitch-feint-not-too-feint {
+    color: #a578ff;
+    background-color: #17e1bfff;
+    border-color: #1711aaff;
+}
+
+.alert-twitch-feint-not-too-feint hr {
+    border-top-color: #160191ff;
+}
+
+.alert-twitch-feint-not-too-feint .alert-link {
+    color: #8345ff;
+}
+
+.badge-twitch-feint-not-too-feint {
+    color: #212529;
+    background-color: #f7f3ff;
+}
+
+.badge-twitch-feint-not-too-feint[href]:hover, .badge-twitch-feint-not-too-feint[href]:focus {
+    color: #212529;
+    background-color: #d5c0ff;
+}
+
+.bg-twitch-feint-not-too-feint {
+    background-color: #f7f3ff !important;
+}
+
+a.bg-twitch-feint-not-too-feint:hover, a.bg-twitch-feint-not-too-feint:focus,
+button.bg-twitch-feint-not-too-feint:hover,
+button.bg-twitch-feint-not-too-feint:focus {
+    background-color: #d5c0ff !important;
+}
+
+.border-twitch-feint-not-too-feint {
+    border-color: #f7f3ff !important;
+}
+
+.btn-twitch-feint-not-too-feint {
+    color: #212529;
+    background-color: #f7f3ff;
+    border-color: #f7f3ff;
+}
+
+.btn-twitch-feint-not-too-feint:hover {
+    color: #212529;
+    background-color: #dfcfff;
+    border-color: #d5c0ff;
+}
+
+.btn-twitch-feint-not-too-feint:focus, .btn-twitch-feint-not-too-feint.focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 243, 255, 0.5);
+}
+
+.btn-twitch-feint-not-too-feint.disabled, .btn-twitch-feint-not-too-feint:disabled {
+    color: #212529;
+    background-color: #f7f3ff;
+    border-color: #f7f3ff;
+}
+
+.btn-twitch-feint-not-too-feint:not(:disabled):not(.disabled):active, .btn-twitch-feint-not-too-feint:not(:disabled):not(.disabled).active, .show > .btn-twitch-feint-not-too-feint.dropdown-toggle {
+    color: #212529;
+    background-color: #d5c0ff;
+    border-color: #cab0ff;
+}
+
+.btn-twitch-feint-not-too-feint:not(:disabled):not(.disabled):active:focus, .btn-twitch-feint-not-too-feint:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-feint-not-too-feint.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 243, 255, 0.5);
+}
+
+.btn-outline-twitch-feint-not-too-feint {
+    color: #f7f3ff;
+    background-color: transparent;
+    border-color: #f7f3ff;
+}
+
+.btn-outline-twitch-feint-not-too-feint:hover {
+    color: #212529;
+    background-color: #f7f3ff;
+    border-color: #f7f3ff;
+}
+
+.btn-outline-twitch-feint-not-too-feint:focus, .btn-outline-twitch-feint-not-too-feint.focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 243, 255, 0.5);
+}
+
+.btn-outline-twitch-feint-not-too-feint.disabled, .btn-outline-twitch-feint-not-too-feint:disabled {
+    color: #f7f3ff;
+    background-color: transparent;
+}
+
+.btn-outline-twitch-feint-not-too-feint:not(:disabled):not(.disabled):active, .btn-outline-twitch-feint-not-too-feint:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch-feint-not-too-feint.dropdown-toggle {
+    color: #212529;
+    background-color: #f7f3ff;
+    border-color: #f7f3ff;
+}
+
+.btn-outline-twitch-feint-not-too-feint:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch-feint-not-too-feint:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch-feint-not-too-feint.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 243, 255, 0.5);
+}
+
+.list-group-item-twitch-feint-not-too-feint {
+    color: #a578ff;
+    background-color: #1711aaff;
+}
+
+.list-group-item-twitch-feint-not-too-feint.list-group-item-action:hover, .list-group-item-twitch-feint-not-too-feint.list-group-item-action:focus {
+    color: #a578ff;
+    background-color: #160191ff;
+}
+
+.list-group-item-twitch-feint-not-too-feint.list-group-item-action.active {
+    color: #212529;
+    background-color: #a578ff;
+    border-color: #a578ff;
+}
+
+.table-twitch-feint-not-too-feint,
+.table-twitch-feint-not-too-feint > th,
+.table-twitch-feint-not-too-feint > td {
+    background-color: #1711aaff;
+}
+
+.table-hover .table-twitch-feint-not-too-feint:hover {
+    background-color: #160191ff;
+}
+
+.table-hover .table-twitch-feint-not-too-feint:hover > td,
+.table-hover .table-twitch-feint-not-too-feint:hover > th {
+    background-color: #160191ff;
+}
+
+.text-twitch-feint-not-too-feint {
+    color: #f7f3ff !important;
+}
+
+a.text-twitch-feint-not-too-feint:hover, a.text-twitch-feint-not-too-feint:focus {
+    color: #d5c0ff !important;
+}
