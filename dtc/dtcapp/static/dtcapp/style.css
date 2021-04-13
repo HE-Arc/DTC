@@ -45,7 +45,7 @@
 
 .custom-active {
   color: #5200bd !important;
-  font-weight: 580;
+  font-weight: 620;
 }
 
 .color-twitch {
@@ -79,6 +79,10 @@ body,html {
 
 .lh-0 {
   line-height: 0;
+}
+
+.fs-12 {
+  font-size: 1.2rem;
 }
 
 /* Customed reversed twitch button */

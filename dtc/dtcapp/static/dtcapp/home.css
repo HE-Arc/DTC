@@ -102,3 +102,8 @@
     font-size: 1.5rem !important;
   }
 }
+
+.border-shadow {
+  -webkit-box-shadow: 4px 3px 7px 5px rgba(0,0,0,0.4); 
+  box-shadow: 4px 3px 7px 5px rgba(0,0,0,0.4);
+}
