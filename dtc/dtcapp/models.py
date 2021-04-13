@@ -35,7 +35,7 @@ class User(AbstractBaseUser):
     #password = models.CharField(max_length=50)
     Likes = models.ManyToManyField(LikedClip)
     Follows = models.ManyToManyField(Streamer,through='Following')
-    Subscriptions = models.ManyToManyField('self')
+    Subscriptions = models.ManyToManyField('self', symmetrical=False)
 
     objects = UserManager()
 

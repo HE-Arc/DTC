@@ -10,10 +10,6 @@ class PictureWidget(forms.widgets.Widget):
         return mark_safe(html.substitute(link=value))
 
 class SignUpForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['picture','username','email','password','id_twitch','pictureURL']
-
     picture = forms.ImageField(widget=PictureWidget,label="")    
     username = forms.CharField(max_length=100,required=True)
     email = forms.CharField(max_length=100,required=True)
@@ -21,6 +17,9 @@ class SignUpForm(forms.ModelForm):
     confirm_password=forms.CharField(widget=forms.PasswordInput)
     id_twitch = forms.CharField(max_length=30,widget = forms.HiddenInput())
     pictureURL = forms.CharField(max_length=250,widget = forms.HiddenInput())
+    class Meta:
+        model = User
+        fields = ['picture','username','email','password','id_twitch','pictureURL']
 
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()

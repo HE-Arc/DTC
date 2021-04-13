@@ -178,6 +178,7 @@ class Dislike(AuthView):
         id_clip = request.POST['id_clip']
         disliked_clip = LikedClip.objects.get(id_clip = id_clip)
 
+        #TODO:Maybe do the all() after the filter ? (sinon on prend tous les objets depuis la DB et après on les filtre côté python)
         nb_users = len(User.Likes.through.objects.all().filter(likedclip = disliked_clip)) # nb of users who liked this clip also
 
         request.user.Likes.remove(LikedClip.objects.get(id_clip = id_clip))
@@ -207,9 +208,7 @@ class Profile(AuthView):
 
         return context
 
-
-class Subscriptions(AuthView):
-    template_name = "dtcapp/subscriptions.html"
+          
 
 
 class UserCreateView(generic.CreateView):
@@ -363,4 +362,73 @@ class TwitchTest(AuthView):
         clips = twitchClip.get_clips_from_all_followed()
         print(clips)
         '''
+        return context
+
+
+class Follow(AuthView):
+
+    def get(self, request):
+
+        return redirect('subscriptions')
+
+    def post(self, request):
+
+        user_id = request.POST['user_id']
+        user_subscribed = None
+        try : # Tries to save a new liked clip in the database
+            user_subscribed = User.objects.get(id=user_id)
+            request.user.Subscriptions.add(user_subscribed)
+            
+        except IntegrityError : # Chose to ignore the IntegrityError (if clip already exists in the LikedClip table)
+
+            pass # This Exception is thrown when already exists in table, we DON'T want this error to stop everything
+
+        except : # If it is another Exception than IntegrityError, we WANT this error to be caught and dealt with later
+            
+            return # Because it doesn't return anything, it allows the error to be detected later in the javascript
+        subscriptions = request.user.Subscriptions.all()
+        
+        data = {'action': 'follow', 'user_id' : user_id , 'user_name':user_subscribed.username,'user_picture':user_subscribed.pictureURL}
+        return JsonResponse(data, safe=False)
+
+class Unfollow(AuthView):
+
+    def get(self, request):
+
+        return redirect('subscriptions')
+
+    def post(self, request):
+
+        user_id = request.POST['user_id']
+        
+        request.user.Subscriptions.remove(User.objects.get(id=user_id))
+        #subscription_deleted = 
+
+        data = {'action': 'unfollow','user_id' : user_id}
+        return JsonResponse(data, safe=False)
+
+class Subscriptions(AuthView):
+    template_name = "dtcapp/subscriptions.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Search username
+
+        username = self.request.GET.get('username',None)
+        if username is not None and username is not '':
+            users = User.objects.filter(username__contains=username).all()
+            context['searched'] = True
+            context['users'] = users
+        else:
+            context['searched'] = False
+
+        #Get subscriptions
+
+        subscriptions = self.request.user.Subscriptions.all()
+
+        context['subscriptions_id'] = subscriptions.values_list('id', flat=True)
+
+        context['subscriptions'] = subscriptions
+
         return context

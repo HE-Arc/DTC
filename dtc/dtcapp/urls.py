@@ -3,13 +3,6 @@ from django.contrib import admin
 
 from . import views
 
-# TODO-ADV-1-3 Uncomment thos four lines used by restframework
-#from rest_framework import routers
-#router = routers.DefaultRouter()
-#router.register('users', views.UserViewSet)
-#router.register('soldiers', views.SoldierViewSet)
-
-
 urlpatterns = [
     path('index/', views.index, name='index'),
     path('', views.index, name='index'),
@@ -25,5 +18,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('user/new', views.UserCreateView.as_view(), name='user-create'),
     path('switch_following', views.FollowingSwitch.as_view(), name='switch-following'),
-    path('syncfollows/',views.SyncFollows.as_view(),name='sync-follows')
+    path('syncfollows/',views.SyncFollows.as_view(),name='sync-follows'),
+    path('follow/', views.Follow.as_view(), name='follow'),
+    path('unfollow/', views.Unfollow.as_view(), name='unfollow'),
 ]
