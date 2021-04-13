@@ -16,7 +16,7 @@
 }
 
 .streamer:hover {
-  background-color: #b072ff;
+  background-color: #cea9ff;
   cursor: pointer;
 }
 
@@ -75,6 +75,7 @@
   text-decoration: none;
   color:rgb(44, 206, 44);
 }
+
 /* responsive size for title of clips */
 
 @media only screen and (min-width: 1249px) {

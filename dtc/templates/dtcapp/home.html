@@ -19,7 +19,7 @@
 
 {% block content %}
 
-<div id="following" class="bg-twitch-lighter pt-2">
+<div id="following" class="bg-twitch-lighter">
     {% for streamer in follows %}
     <form method="post" action="{% url 'switch-following' %}">
         {% csrf_token %}
