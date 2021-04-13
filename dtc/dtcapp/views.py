@@ -178,6 +178,7 @@ class Dislike(AuthView):
         id_clip = request.POST['id_clip']
         disliked_clip = LikedClip.objects.get(id_clip = id_clip)
 
+        #TODO:Maybe do the all() after the filter ? (sinon on prend tous les objets depuis la DB et après on les filtre côté python)
         nb_users = len(User.Likes.through.objects.all().filter(likedclip = disliked_clip)) # nb of users who liked this clip also
 
         request.user.Likes.remove(LikedClip.objects.get(id_clip = id_clip))
@@ -210,6 +211,18 @@ class Profile(AuthView):
 
 class Subscriptions(AuthView):
     template_name = "dtcapp/subscriptions.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.request.GET.get('username',None)
+        if username is not None and username is not '':
+            users = User.objects.filter(username__contains=username).all()
+            context['searched'] = True
+            context['users'] = users
+        else:
+            context['searched'] = False
+        return context
+            
 
 
 class UserCreateView(generic.CreateView):

@@ -40,15 +40,43 @@
 
     <div class="col text-center px-0">
 
-      <form method="post" action="JESAISPAS!!!" role="form">
+      <form method="GET" action="{% url 'subscriptions' %}" role="form">
         {% csrf_token %}
         <label for="twitch_name" class="align-middle mb-0">Username : </label>
-        <input type="text" id="twitch_name" name="twitch_name" class="form-control d-inline-block w-auto align-middle">
+        <input type="text" id="username" name="username" class="form-control d-inline-block w-auto align-middle">
         <input type="submit" value="&#xf002" name="btn_like"
           class="btn btn-lg btn-weight fas text-uppercase btn-twitch align-middle p-2">
       </form>
 
+      <div class="col p-5">
+      {% if searched %}
+      {% if not users %}
+        <p>No user found !</p>
+      {% else %}
+      <ul class="list-group col-5 mx-auto p-1">
+        {% for user in users %}
+        
+          <li class="list-group-item list-group-item-twitch px-3 py-2">
+            <div class="row">
+              <div class="col-auto">
+                <img class="profile-pic mr-1" src="{{user.pictureURL}}">
+                <div class="align-middle d-inline-block font-weight-bold">{{user.username}}</div>
+              </div>
+              <div class="col v-center justify-content-end">
+              <form action="{% url '' %}" method="post" class='follow_form'>
+                <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
+                <button type="submit" class="btn btn-twitch p-2 lh-0 d-inline-block fs-8"><i class="fas fa-plus"></i></button>
+              </form>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endif %}
+      </div>
     </div>
+    
   </div>
 </div>
 
