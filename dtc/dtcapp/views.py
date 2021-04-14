@@ -75,38 +75,61 @@ class Home(AuthView):
 
         context['follows'] = follows
 
+        value_likes = 'LIKES'
+
+        list_tops = ['24H','7D','ALL']
+        list_tops.append(value_likes)
         # -- TOP --
         txt_top = self.kwargs.get('top', None)
-        if txt_top is None:
+        if txt_top is None or txt_top not in list_tops:
             txt_top='24H'
+
         context['top'] = txt_top
 
         # -- CLIPS --
-        top = TwitchTop.string_to_top(txt_top)
+        if txt_top != value_likes:
+            top = TwitchTop.string_to_top(txt_top)
 
-        follow_ids = list(follows.filter(activated=True).values_list('id_streamer', flat=True))
-        
-        twitchClip = TwitchClip(follow_ids)
+            follow_ids = list(follows.filter(activated=True).values_list('id_streamer', flat=True))
+            
+            twitchClip = TwitchClip(follow_ids)
 
-        clips = twitchClip.get_clips_from_all_followed(twitchTop=top)
-        list_clips = []
+            clips = twitchClip.get_clips_from_all_followed(twitchTop=top)
+            list_clips = []
 
-        for clip_data in clips.values(): #by streamer
-            for clip in clip_data['data']: #by clip
-                list_clips.append({
-                    'id' : clip['id'],
-                    'title' : f"{clip['title']}" if len(clip['title']) < 35 else f"{clip['title'][:30]} ...",
-                    'embed_url' : f"{clip['embed_url']}&parent={settings.CLIP_PARENT}",
-                    'thumbnail_url' : f"{clip['thumbnail_url']}"
+            for clip_data in clips.values(): #by streamer
+                for clip in clip_data['data']: #by clip
+                    list_clips.append({
+                        'id' : clip['id'],
+                        'title' : f"{clip['title']}" if len(clip['title']) < 35 else f"{clip['title'][:30]} ...",
+                        'embed_url' : f"{clip['embed_url']}&parent={settings.CLIP_PARENT}",
+                        'thumbnail_url' : f"{clip['thumbnail_url']}"
+                        })
+                    # print(clip['title'])
+                    # print(clip['embed_url'])
+                    # print(clip['thumbnail_url'])
+
+            # list_clip_urls.append("https://clips.twitch.tv/embed?clip=FamousKitschyElephantRickroll-jzd7ZqFBGOX8n6Mh&parent=localhost&parent=127.0.0.1")
+            # list_clip_urls.append("https://clips.twitch.tv/embed?clip=ExpensiveDelightfulScorpionStrawBeary-6r9WE45noXxZKwt3&parent=localhost&parent=127.0.0.1")
+
+            context['clips'] = list_clips
+            context['is_likes'] = False
+        else:
+            subscriptions = self.request.user.Subscriptions.all()
+            list_clips = []
+            for subscription in subscriptions:
+                clips = subscription.Likes.all()
+                for clip in clips:
+                    list_clips.append({
+                        'id':clip.id,
+                        'title': f"{clip.title_clip}" if len(clip.title_clip) < 35 else f"{clip.title_clip[:30]} ...",
+                        'embed_url' : f"{clip.clipURL}&parent={settings.CLIP_PARENT}",
+                        'thumbnail_url' : clip.thumbnailURL_clip,
+                        'liked_by' : subscription.username
                     })
-                # print(clip['title'])
-                # print(clip['embed_url'])
-                # print(clip['thumbnail_url'])
 
-        # list_clip_urls.append("https://clips.twitch.tv/embed?clip=FamousKitschyElephantRickroll-jzd7ZqFBGOX8n6Mh&parent=localhost&parent=127.0.0.1")
-        # list_clip_urls.append("https://clips.twitch.tv/embed?clip=ExpensiveDelightfulScorpionStrawBeary-6r9WE45noXxZKwt3&parent=localhost&parent=127.0.0.1")
-
-        context['clips'] = list_clips
+            context['clips'] = list_clips
+            context['is_likes'] = True
 
         # -- LIKED CLIPS OF THE USER --
 

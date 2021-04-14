@@ -47,6 +47,7 @@
             <a class="dropdown-item" href="{% url 'home-top' top='24H' %}">Top <span class="top-twitch">24H</span></a>
             <a class="dropdown-item" href="{% url 'home-top' top='7D' %}">Top <span class="top-twitch">7D</span></a>
             <a class="dropdown-item" href="{% url 'home-top' top='ALL' %}">Top <span class="top-twitch">ALL</span></a>
+            <a class="dropdown-item" href="{% url 'home-top' top='LIKES' %}">Top <span class="top-twitch">Subscribers likes</span></a>
         </div>
     </div>
 
@@ -59,10 +60,16 @@
         </div>
 
         {% else %}
+        {% if not clips %}
+        <div class="text-center mt-2 mb-4 text-twitch text-uppercase display-4 font-weight-bold w-100">
+            No clips yet !
+        </div>
+        {% else %}
         {% for clip in clips %}
 
         <div class="text-center mb-4 bg-twitch-lighter border-shadow">
             <div class="font-weight-bold text-twitch-feint clip-title py-1">{{clip.title}}</div>
+            {% if is_likes %}<div class="text-twitch-feint">Liked by {{clip.liked_by}}</div>{% endif %}
             <div class="container-clip">
                 <a class="btn responsive-iframe index-2 p-0" onclick="load(this)">
                     <img src="{{clip.thumbnail_url}}" loading="lazy" width="100%" height="100%">
@@ -87,6 +94,7 @@
         </div>
 
         {% endfor %}
+        {% endif %}
         {% endif %}
 
     </div>
