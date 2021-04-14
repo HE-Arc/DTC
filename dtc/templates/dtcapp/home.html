@@ -68,8 +68,10 @@
         {% for clip in clips %}
 
         <div class="text-center mb-4 bg-twitch-lighter border-shadow">
-            <div class="font-weight-bold text-twitch-feint clip-title py-1">{{clip.title}}</div>
-            {% if is_likes %}<div class="text-twitch-feint">Liked by {{clip.liked_by}}</div>{% endif %}
+            <div class="font-weight-bold text-twitch-feint clip-title pt-1 {% if not is_likes %} pb-1 {% endif %}">{{clip.title}}</div>
+            {% if is_likes %}
+                <div class="text-twitch-feint pb-1">Liked by {{clip.liked_by}}</div>
+            {% endif %}
             <div class="container-clip">
                 <a class="btn responsive-iframe index-2 p-0" onclick="load(this)">
                     <img src="{{clip.thumbnail_url}}" loading="lazy" width="100%" height="100%">

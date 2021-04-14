@@ -121,7 +121,7 @@ class Home(AuthView):
                 clips = subscription.Likes.all()
                 for clip in clips:
                     list_clips.append({
-                        'id':clip.id,
+                        'id':clip.id_clip,
                         'title': f"{clip.title_clip}" if len(clip.title_clip) < 35 else f"{clip.title_clip[:30]} ...",
                         'embed_url' : f"{clip.clipURL}&parent={settings.CLIP_PARENT}",
                         'thumbnail_url' : clip.thumbnailURL_clip,
@@ -136,6 +136,10 @@ class Home(AuthView):
         likedclip_id_clips = self.request.user.Likes.all().values_list('id_clip', flat=True)
 
         context['likedclips'] = likedclip_id_clips
+
+        # -- SAY IT IS A 'HOME' PAGE --
+
+        context['is_home'] = True
 
         return context
 
@@ -229,10 +233,9 @@ class Profile(AuthView):
             print(clip.thumbnailURL_clip)
             print(clip.clipURL)
 
+        context['is_profile'] = True
+
         return context
-
-          
-
 
 class UserCreateView(generic.CreateView):
     model = User
@@ -453,5 +456,7 @@ class Subscriptions(AuthView):
         context['subscriptions_id'] = subscriptions.values_list('id', flat=True)
 
         context['subscriptions'] = subscriptions
+
+        context['is_subscriptions'] = True
 
         return context
