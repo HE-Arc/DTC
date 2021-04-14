@@ -19,88 +19,97 @@
 
 {% block content %}
 
-<div id="following" class="bg-twitch-lighter">
-    {% for streamer in follows %}
-    <form method="post" action="{% url 'switch-following' %}">
-        {% csrf_token %}
-        <input type="hidden" name="following_id" value="{{ streamer.following_id }}">
-        <div class="streamer" onClick="javascript:this.parentNode.submit();">
-            <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:" activated,unactivated" }}"
-                loading="lazy">
-            <p>{{streamer.name}}</p>
-        </div>
-    </form>
-    {% endfor %}
-    <div class="streamer">
-    <a href="{% url 'sync-follows' %}" class="fas fa-sync btn-sync"></a>
-    </div>
-</div>
+<div class="d-flex h-100">
 
-<div id="clips">
-
-    <div class="btn-group dropleft float-right">
-        <button class="btn btn-twitch font-weight-bold btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Top&nbsp;<span class="top-twitch">{{top}}</span>
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="{% url 'home-top' top='24H' %}">Top <span class="top-twitch">24H</span></a>
-            <a class="dropdown-item" href="{% url 'home-top' top='7D' %}">Top <span class="top-twitch">7D</span></a>
-            <a class="dropdown-item" href="{% url 'home-top' top='ALL' %}">Top <span class="top-twitch">ALL</span></a>
-            <a class="dropdown-item" href="{% url 'home-top' top='LIKES' %}">Top <span class="top-twitch">Subscribers likes</span></a>
+    <div id="following" class="bg-twitch-lighter">
+        {% for streamer in follows %}
+        <form method="post" action="{% url 'switch-following' %}">
+            {% csrf_token %}
+            <input type="hidden" name="following_id" value="{{ streamer.following_id }}">
+            <div class="streamer" onClick="javascript:this.parentNode.submit();">
+                <img src="{{streamer.image}}" class="{{ streamer.activated|yesno:" activated,unactivated" }}"
+                    loading="lazy">
+                <p>{{streamer.name}}</p>
+            </div>
+        </form>
+        {% endfor %}
+        <div class="streamer">
+            <a href="{% url 'sync-follows' %}" class="fas fa-sync btn-sync"></a>
         </div>
     </div>
 
-    <div id="allClips" class="pt-5 pb-4">
+    <div id="clips" class="f-grow">
 
-        {% if not follows %}
-
-        <div class="text-center text-twitch text-uppercase display-4 font-weight-bold w-100 mv-10 a-size">
-            You are not following any streamer on Twitch yet !
+        <div class="btn-group dropleft float-right">
+            <button class="btn btn-twitch font-weight-bold btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Top&nbsp;<span class="top-twitch">{{top}}</span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'home-top' top='24H' %}">Top <span
+                        class="top-twitch">24H</span></a>
+                <a class="dropdown-item" href="{% url 'home-top' top='7D' %}">Top <span class="top-twitch">7D</span></a>
+                <a class="dropdown-item" href="{% url 'home-top' top='ALL' %}">Top <span
+                        class="top-twitch">ALL</span></a>
+                <a class="dropdown-item" href="{% url 'home-top' top='LIKES' %}">Top <span
+                        class="top-twitch">Subscribers likes</span></a>
+            </div>
         </div>
 
-        {% else %}
-        {% if not clips %}
-        <div class="text-center mt-2 mb-4 text-twitch text-uppercase display-4 font-weight-bold w-100">
-            No clips yet !
-        </div>
-        {% else %}
-        {% for clip in clips %}
+        <div id="allClips" class="pt-5 pb-4">
 
-        <div class="text-center mb-4 bg-twitch-lighter border-shadow">
-            <div class="font-weight-bold text-twitch-feint clip-title pt-1 {% if not is_likes %} pb-1 {% endif %}">{{clip.title}}</div>
-            {% if is_likes %}
-                <div class="text-twitch-feint pb-1">Liked by {{clip.liked_by}}</div>
-            {% endif %}
-            <div class="container-clip">
-                <a class="btn responsive-iframe index-2 p-0" onclick="load(this)">
-                    <img src="{{clip.thumbnail_url}}" loading="lazy" width="100%" height="100%">
-                </a>
-                <iframe class="responsive-iframe" data-value="{{clip.embed_url}}" allowfullscreen="false"></iframe>
+            {% if not follows %}
+
+            <div class="text-center text-twitch text-uppercase display-4 font-weight-bold w-100 mv-10 a-size">
+                You are not following any streamer on Twitch yet !
             </div>
 
-            <form method="post"
-                action="{% if clip.id in likedclips %} {% url 'dislike' %} {% else %} {% url 'like' %} {% endif %}"
-                id="like_form" role="form" class="like_form">
-                {% csrf_token %}
-                <p name="output-message" class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success"
-                    style="display:none;"></p>
-                <input type="hidden" name="id_clip" id="id_clip" value="{{ clip.id }}">
-                <input type="hidden" name="clipURL" id="clipURL" value="{{ clip.embed_url }}">
-                <input type="hidden" name="title_clip" id="title_clip" value="{{ clip.title }}">
-                <input type="hidden" name="thumbnailURL_clip" id="thumbnailURL_clip" value="{{ clip.thumbnail_url }}">
-                <input type="submit" value="&#xf164" name="btn_like"
-                    class="btn btn-lg btn-weight text-uppercase my-1 p-2 lh-0 far fa-thumbs-up {% if clip.id in likedclips %} btn-twitch {% else %} btn-twitch-reversed {% endif %}">
+            {% else %}
+            {% if not clips %}
+            <div class="text-center mt-2 mb-4 text-twitch text-uppercase display-4 font-weight-bold w-100">
+                No clips yet !
+            </div>
+            {% else %}
+            {% for clip in clips %}
+
+            <div class="text-center mb-4 bg-twitch-lighter border-shadow">
+                <div class="font-weight-bold text-twitch-feint clip-title pt-1 {% if not is_likes %} pb-1 {% endif %}">
+                    {{clip.title}}</div>
+                {% if is_likes %}
+                <div class="text-twitch-feint pb-1">Liked by {{clip.liked_by}}</div>
+                {% endif %}
+                <div class="container-clip">
+                    <a class="btn responsive-iframe index-2 p-0" onclick="load(this)">
+                        <img src="{{clip.thumbnail_url}}" loading="lazy" width="100%" height="100%">
+                    </a>
+                    <iframe class="responsive-iframe" data-value="{{clip.embed_url}}" allowfullscreen="false"></iframe>
+                </div>
+
+                <form method="post"
+                    action="{% if clip.id in likedclips %} {% url 'dislike' %} {% else %} {% url 'like' %} {% endif %}"
+                    id="like_form" role="form" class="like_form">
+                    {% csrf_token %}
+                    <p name="output-message"
+                        class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success"
+                        style="display:none;"></p>
+                    <input type="hidden" name="id_clip" id="id_clip" value="{{ clip.id }}">
+                    <input type="hidden" name="clipURL" id="clipURL" value="{{ clip.embed_url }}">
+                    <input type="hidden" name="title_clip" id="title_clip" value="{{ clip.title }}">
+                    <input type="hidden" name="thumbnailURL_clip" id="thumbnailURL_clip"
+                        value="{{ clip.thumbnail_url }}">
+                    <input type="submit" value="&#xf164" name="btn_like"
+                        class="btn btn-lg btn-weight text-uppercase my-1 p-2 lh-0 far fa-thumbs-up {% if clip.id in likedclips %} btn-twitch {% else %} btn-twitch-reversed {% endif %}">
                 </form>
+
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            {% endif %}
 
         </div>
 
-        {% endfor %}
-        {% endif %}
-        {% endif %}
-
     </div>
-
 </div>
 
 {% endblock %}

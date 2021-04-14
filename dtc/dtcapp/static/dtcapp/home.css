@@ -1,6 +1,5 @@
 #following {
   overflow-y: scroll;
-  height: 100%;
   float: left;
   min-width: 7em;
   background-color: blue;
@@ -8,6 +7,10 @@
 
 #clips {
   height: 100%;
+}
+
+.f-grow {
+  flex-grow: 1;
 }
 
 .streamer {
@@ -67,7 +70,7 @@
 .btn-sync{
   padding:0.2em;
   text-decoration: none;
-  font-size: 3em;
+  font-size: 2.6em;
   color:rgb(22, 158, 22);
 }
 
