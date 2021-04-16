@@ -21,7 +21,7 @@
 
 <div class="d-flex h-100">
 
-    <div id="following" class="bg-twitch-lighter">
+    <div id="following" class="bg-twitch-lighter following-bar">
         {% for streamer in follows %}
         <form method="post" action="{% url 'switch-following' %}">
             {% csrf_token %}
@@ -100,7 +100,6 @@
                     <input type="submit" value="&#xf164" name="btn_like"
                         class="btn btn-lg btn-weight text-uppercase my-1 p-2 lh-0 far fa-thumbs-up {% if clip.id in likedclips %} btn-twitch {% else %} btn-twitch-reversed {% endif %}">
                 </form>
-
             </div>
 
             {% endfor %}

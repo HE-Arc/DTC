@@ -1,8 +1,6 @@
-#following {
-  overflow-y: scroll;
+.following-bar{
   float: left;
   min-width: 7em;
-  background-color: blue;
 }
 
 #clips {
