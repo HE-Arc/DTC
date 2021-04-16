@@ -114,4 +114,14 @@
   }
   
   /* Customed by us */
+
+  .img-profile{
+    border-radius: 50%;
+    width:35%;
+  }
   
+  @media (max-width: 768px) {
+    .card{
+      width:100%!important;
+    }
+  }

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import environ
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'dtcapp',
     'bootstrap4',
     'fontawesome-free',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -82,11 +84,15 @@ WSGI_APPLICATION = 'dtc.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dtc',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'NAME': os.environ.get('GROUPNAME', 'dtc'),
+        'USER': os.environ.get('GROUPNAME', 'root'),
+        'PASSWORD': os.environ.get('PASSWORD', ''),
+        'HOST': os.environ.get('MYSQL_HOST', 'localhost'),
+        'PORT': os.environ.get('MYSQL_PORT', '3306'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            #'ssl_mode': 'DISABLED' # on server uncomment
+        }
     }
 }
 
@@ -138,3 +144,4 @@ environ.Env.read_env()
 
 TWITCH_PUBLIC_KEY = env('TWITCH_PUBLIC_KEY')
 TWITCH_PRIVATE_KEY = env('TWITCH_PRIVATE_KEY')
+CLIP_PARENT = '127.0.0.1' # on server use : dtc.srvz-webapp.he-arc.ch

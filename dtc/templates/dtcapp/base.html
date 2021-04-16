@@ -11,6 +11,9 @@
 
     {% block styles %}{% endblock %}
 
+    <script src="{% static 'dtcapp/script.js' %}"></script>
+    {% block scripts %}{% endblock %}
+    
     <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'dtcapp/colors.css' %}">
     <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -27,7 +30,7 @@
         {# Navbar #}
         {% if request.path != '/' and request.path != '/index/' %}
         <nav
-            class="navbar navbar-expand-lg navbar-light bg-twitch-feint px-3 border-twitch border-twitch-light border-top-0 border-right-0 border-left-0 px-5 py-3">
+            class="navbar navbar-expand-lg navbar-light bg-twitch-lighter px-3 px-5 py-3">
 
             <div class="{% if not user.is_authenticated %} w-100 d-flex justify-content-center {% endif %}">
                 <a class="navbar-nav navbar-brand p-0 mr-0 mr-5" href="{% url 'index' %}">
@@ -42,23 +45,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="collapse navbar-collapse fs-115" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link mr-5 {% if request.path == '/home/' %} custom-active {% else %} color-twitch {% endif %}"
+                    <a class="nav-item nav-link mr-5 text-twitch-feint {% if is_home %} custom-active {% endif %}"
                         href="{% url 'home' %}">Home</a>
-                    <a class="nav-item nav-link {% if request.path == '/subscriptions/' %} custom-active {% else %} color-twitch {% endif %}"
+                    <a class="nav-item nav-link text-twitch-feint {% if is_subscriptions %} custom-active {% endif %}"
                         href="{% url 'subscriptions' %}">Subscriptions</a>
                 </div>
 
                 <div class="navbar-nav nav-item dropdown ml-auto cursor-pointer">
-                    <a class="nav-link dropdown-toggle centering {% if request.path == '/profile/' %} custom-active {% else %} color-twitch {% endif %}"
+                    <a class="nav-link dropdown-toggle centering text-twitch-feint {% if is_profile %} custom-active {% endif %}"
                         id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="nav-pp mr-2" src="{{user.pictureURL}}">{{user.username}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info"
                         aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item {% if request.path == '/profile/' %} bg-twitch-lightest {% endif %}"
+                        <a class="dropdown-item {% if is_profile %} bg-twitch-lightest {% endif %}"
                             href="{% url 'profile' %}">My profile</a>
                         <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
                     </div>
@@ -78,9 +81,12 @@
         </section>
 
         {# Footer #}
-        <footer class="footer">
-            <p style="text-align: center; height: 2.5rem;">2021 &copy; HE-ARC</p>
+        {% if request.path != '/' and request.path != '/index/' %}
+        <!-- border-015 border-twitch-light border-bottom-0 border-right-0 border-left-0 -->
+        <footer class="footer bg-twitch-lighter py-4">
+            <p class="d-flex align-items-center justify-content-center m-0 text-twitch-feint font-weight-bold text-uppercase">2021 &copy; He-Arc</p>
         </footer>
+        {% endif %}
     </div>
 </body>
 

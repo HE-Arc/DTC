@@ -3,12 +3,14 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import UserManager
 
-from dtcapp.twitchtools import TwitchUser, TwitchClip, TwitchTop
+from .twitchtools import TwitchUser, TwitchClip, TwitchTop
 
 # Create your models here.
 class LikedClip(models.Model):
     clipURL = models.CharField(max_length=250)
-    id_clip = models.CharField(max_length=30)
+    id_clip = models.CharField(max_length=100,unique=True)
+    title_clip = models.CharField(max_length=50)
+    thumbnailURL_clip = models.CharField(max_length=250)
 
     def __str__(self):
         return self.clipURL
@@ -33,7 +35,7 @@ class User(AbstractBaseUser):
     #password = models.CharField(max_length=50)
     Likes = models.ManyToManyField(LikedClip)
     Follows = models.ManyToManyField(Streamer,through='Following')
-    Subscriptions = models.ManyToManyField('self')
+    Subscriptions = models.ManyToManyField('self', symmetrical=False)
 
     objects = UserManager()
 
@@ -41,9 +43,22 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS=['password','email','pictureURL','id_twitch']
 
     def update_follows(self,followers_ids):
-        self.Follows.through.objects.all().delete()
+        self.Follows.through.objects.filter(user_id=self.id).delete()
         if len(followers_ids) > 0:
             twitchClip = TwitchClip(followers_ids)
+
+            followers = twitchClip.get_infos_followed()
+            for streamer_id, follow in followers.items():
+                streamer_db = Streamer.objects.filter(id_streamer=streamer_id).first()
+                streamer = None
+                if not streamer_db is not None:
+                    streamer = Streamer(name=follow['name'],image=follow['picture'],id_streamer=streamer_id)
+                    streamer.save()
+                else:
+                    streamer = streamer_db
+
+                self.Follows.add(streamer)
+            '''
             names_followed, pictures_followed = twitchClip.get_infos_followed()
 
             for i, flw_id in enumerate(followers_ids):
@@ -56,7 +71,7 @@ class User(AbstractBaseUser):
                     streamer = streamer_db
 
                 self.Follows.add(streamer)
-
+            '''
             
 
     def __str__(self):

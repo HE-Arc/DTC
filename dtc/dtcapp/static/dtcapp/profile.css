@@ -1,7 +1,3 @@
-.text-center {
-    text-align: center;
-}
-
 /* Image transform */
 
 .profile-pic {
@@ -24,68 +20,54 @@
   max-width: 100%;
 }
 
-/* Customed reversed twitch button */
+/* ONLY FOR CLIPS */
 
-.btn-twitch-reversed {
-    color: #913efd;
-    background-color: #fff;
-    border-color: #913efd;
-    border : 3px solid;
+#following {
+  overflow-y: scroll;
+  height: 100%;
+  float: left;
+  min-width: 7em;
+  background-color: blue;
 }
 
-.btn-twitch-reversed:hover {
-    color: #913efd;
-    background-color: #7c1afc;
-    border-color: #740bfc;
+#clips {
+  height: 100%;
 }
 
-.btn-twitch-reversed:focus, .btn-twitch-reversed.focus {
-    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+.container-clip {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
-.btn-twitch-reversed.disabled, .btn-twitch-reversed:disabled {
-    color: #913efd;
-    background-color: #fff;
-    border-color: #913efd;
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 1;
 }
 
-.btn-twitch-reversed:not(:disabled):not(.disabled):active, .btn-twitch-reversed:not(:disabled):not(.disabled).active, .show > .btn-twitch-reversed.dropdown-toggle {
-    color: #913efd;
-    background-color: #740bfc;
-    border-color: #6c02f6;
+.index-2 {
+  z-index: 2;
 }
 
-.btn-twitch-reversed:not(:disabled):not(.disabled):active:focus, .btn-twitch-reversed:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-reversed.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
+#allClips {
+  width: 50%;
+  margin: 0 auto;
 }
 
-.btn-outline-twitch {
-    color: #913efd;
-    background-color: transparent;
-    border-color: #913efd;
+/* responsive size for title of clips */
+
+@media only screen and (min-width: 1249px) {
+  /* CSS that should be displayed if width is equal to or less than 991px and larger 
+     than 768px goes here */
+  .clip-title {
+    font-size: 1.4vw;
+  }
 }
 
-.btn-outline-twitch:hover {
-    color: #913efd;
-    background-color: #fff;
-    border-color: #913efd;
-}
-
-.btn-outline-twitch:focus, .btn-outline-twitch.focus {
-    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
-}
-
-.btn-outline-twitch.disabled, .btn-outline-twitch:disabled {
-    color: #913efd;
-    background-color: transparent;
-}
-
-.btn-outline-twitch:not(:disabled):not(.disabled):active, .btn-outline-twitch:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch.dropdown-toggle {
-    color: #913efd;
-    background-color: #fff;
-    border-color: #913efd;
-}
-
-.btn-outline-twitch:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
-}

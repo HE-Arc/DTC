@@ -1,59 +1,113 @@
-#following{
-    overflow-y:scroll;
-    height:100%;
-    float:left;
-    min-width: 7em;
-    background-color: blue;
-}
-#clips{
-    background-color: red;
-    height:100%;
+#following {
+  overflow-y: scroll;
+  float: left;
+  min-width: 7em;
+  background-color: blue;
 }
 
-.streamer{
-display:block;
-text-align: center;
+#clips {
+  height: 100%;
 }
 
-.streamer:hover{
-    background-color: #b072ff;
-    cursor:pointer;
-}
-.streamer p{
-    color:white;
-}
-.streamer img{
-    border-radius: 50%;
-
-    width:4em;
+.f-grow {
+  flex-grow: 1;
 }
 
-.activated{
-    border: 5px solid green;
-}
-.unactivated{
-    border: 5px solid gray;
+.streamer {
+  display: block;
+  text-align: center;
 }
 
+.streamer:hover {
+  background-color: #cea9ff;
+  cursor: pointer;
+}
 
-.container-clip{
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+.streamer p {
+  color: white;
+}
+
+.streamer img {
+  border-radius: 50%;
+  width: 4em;
+}
+
+.activated {
+  border: 5px solid rgb(44, 206, 44);
+}
+
+.unactivated {
+  border: 5px solid gray;
+}
+
+.container-clip {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
 .responsive-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width:100%;
-    height: 100%;
-    border: none;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 1;
+}
 
-#allClips{
-    width:50%;
-    margin:0 auto;
+.index-2 {
+  z-index: 2;
+}
+
+#allClips {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.btn-sync{
+  padding:0.2em;
+  text-decoration: none;
+  font-size: 2.6em;
+  color:rgb(22, 158, 22);
+}
+
+.btn-sync:hover{
+  text-decoration: none;
+  color:rgb(44, 206, 44);
+}
+
+/* responsive size for title of clips */
+
+@media only screen and (min-width: 1249px) {
+  /* CSS that should be displayed if width is equal to or less than 991px and larger 
+     than 768px goes here */
+  .clip-title {
+    font-size: 1.4vw;
+  }
+}
+
+@media only screen and (max-width: 1249px) {
+  .a-size {
+    font-size: 3rem !important;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .a-size {
+    font-size: 2rem !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .a-size {
+    font-size: 1.5rem !important;
+  }
+}
+
+.border-shadow {
+  -webkit-box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.32); 
+  box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.32);
 }
