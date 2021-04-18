@@ -168,7 +168,7 @@ class TwitchTop(Enum):
         return TwitchTop.LAST_24H # default
 
 class TwitchClip:
-    MAX_CLIPS=5
+    MAX_CLIPS=4
     def __init__(self, followed_ids):
         self.twitch = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
         self.followed_ids = followed_ids
