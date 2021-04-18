@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '7ef=2&rnh1vybfgz(o_5n+9ao6mnl%8*=b-3yh)!0viq6=c21@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -91,7 +91,7 @@ DATABASES = {
         'PORT': os.environ.get('MYSQL_PORT', '3306'),
         'OPTIONS': {
             'charset': 'utf8mb4',
-            #'ssl_mode': 'DISABLED' # on server uncomment
+            'ssl_mode': 'DISABLED' # on server uncomment
         }
     }
 }
@@ -144,4 +144,4 @@ environ.Env.read_env()
 
 TWITCH_PUBLIC_KEY = env('TWITCH_PUBLIC_KEY')
 TWITCH_PRIVATE_KEY = env('TWITCH_PRIVATE_KEY')
-CLIP_PARENT = '127.0.0.1' # on server use : dtc.srvz-webapp.he-arc.ch
+CLIP_PARENT = 'dtc.srvz-webapp.he-arc.ch' # on server use : dtc.srvz-webapp.he-arc.ch
