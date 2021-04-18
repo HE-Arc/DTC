@@ -5,24 +5,25 @@ from twitchAPI.types import AuthScope
 from django.conf import settings
 from django.shortcuts import render, redirect
 
-#For TwichClips
+# For TwichClips
 from enum import Enum, auto
 from datetime import datetime, timedelta
 
 import base64
-import urllib.request, json
+import urllib.request
+import json
 import time
 
-class TwitchToken:
-    APPLICATION_NAME='DailyTWClip'
-    TWITCH_GENERATOR='https://twitchtokengenerator.com/api/create/'
-    TWITCH_STATUS='https://twitchtokengenerator.com/api/status/'
-    SCOPES='user:read:email'
-    
 
-    #PING REQUEST
-    TIMES=180
-    WAITING_SECONDS=1
+class TwitchToken:
+    APPLICATION_NAME = 'DailyTWClip'
+    TWITCH_GENERATOR = 'https://twitchtokengenerator.com/api/create/'
+    TWITCH_STATUS = 'https://twitchtokengenerator.com/api/status/'
+    SCOPES = 'user:read:email'
+
+    # PING REQUEST
+    TIMES = 180
+    WAITING_SECONDS = 1
 
     @staticmethod
     def _get_name_base64():
@@ -31,11 +32,11 @@ class TwitchToken:
         base64_bytes = base64.b64encode(message_bytes)
         base64_message = base64_bytes.decode('ascii')
         return base64_message
-        
+
     @staticmethod
     def get_link():
-        link_generator = TwitchToken.TWITCH_GENERATOR+TwitchToken._get_name_base64()+'/'+TwitchToken.SCOPES
-        print(link_generator)
+        link_generator = TwitchToken.TWITCH_GENERATOR + \
+            TwitchToken._get_name_base64()+'/'+TwitchToken.SCOPES
         with urllib.request.urlopen(link_generator) as url:
             data = json.loads(url.read().decode())
 
@@ -49,13 +50,10 @@ class TwitchToken:
     @staticmethod
     def get_token(id):
         link_generator = TwitchToken.TWITCH_STATUS+id
-        times = TwitchToken.TIMES 
+        times = TwitchToken.TIMES
         while times > 0:
-            print(f'BEFORE REQUEST {times}')
             url = urllib.request.urlopen(link_generator)
-            print(f'BEFORE READING {times}')
             data = json.loads(url.read().decode())
-            print(f'BEFORE CLOSING {times}')
             url.close()
             if data['success'] is False:
                 times = times - 1
@@ -69,7 +67,7 @@ class TwitchToken:
         return None, None, None
 
     @staticmethod
-    def redirect_with_link(request,link_redirect):
+    def redirect_with_link(request, link_redirect):
         if request.user.is_authenticated:
             return redirect('home')
         else:
@@ -77,7 +75,7 @@ class TwitchToken:
             id, link = TwitchToken.get_link()
             if id is None:
                 context['error'] = True
-            else:     
+            else:
                 context['error'] = False
                 request.session['id_token_generator'] = id
                 context['link'] = link
@@ -87,42 +85,41 @@ class TwitchToken:
 class TwitchUser:
     TARGET_SCOPE = [AuthScope.USER_READ_EMAIL]
     MAX_FOLLOWS = 10
-    def __init__(self,id_generator=None, id_user=None):
+
+    def __init__(self, id_generator=None, id_user=None):
         self.twitch = None
         self.id_generator = id_generator
 
         self.twitch = None
-        self.twitch2 = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
+        self.twitch2 = Twitch(settings.TWITCH_PUBLIC_KEY,
+                              settings.TWITCH_PRIVATE_KEY)
         self.twitch2.authenticate_app([])
 
         if id_user is None:
-            self.token,self.refresh_token = self._twitch_auth()
+            self.token, self.refresh_token = self._twitch_auth()
             self.user = self._get_user_info()
         else:
             self.user = {}
             self.user['id'] = id_user
-        #print(f'\n\n\nYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO : {self.user}\n\n\n')
-
-        
 
     def _twitch_auth(self):
         #auth = UserAuthenticator(self.twitch, TwitchUser.TARGET_SCOPE, force_verify=False)
         # this will open your default browser and prompt you with the twitch verification website
         #token, refresh_token = auth.authenticate()
 
-
         if self.id_generator is not None:
-            token, refresh_token, client_id = TwitchToken.get_token(self.id_generator)
-            print(f'TOKEN : {token} | REFRESH_TOKEN : {refresh_token}')
+            token, refresh_token, client_id = TwitchToken.get_token(
+                self.id_generator)
             if client_id is not None:
-                self.twitch = Twitch(client_id,settings.TWITCH_PRIVATE_KEY)
+                self.twitch = Twitch(client_id, settings.TWITCH_PRIVATE_KEY)
                 # add User authentication
-                self.twitch.set_user_authentication(token, TwitchUser.TARGET_SCOPE, refresh_token)
+                self.twitch.set_user_authentication(
+                    token, TwitchUser.TARGET_SCOPE, refresh_token)
                 # add App authentification
-                
+
             else:
                 token = None
-                refresh_token = None     
+                refresh_token = None
         else:
             token = None
             refresh_token = None
@@ -143,7 +140,6 @@ class TwitchUser:
 
     def get_user_id(self):
         if self.user is not None:
-            #print(self.user)
             return self.user['id']
 
     def get_user_following(self):
@@ -152,31 +148,34 @@ class TwitchUser:
 
 
 class TwitchTop(Enum):
-    LAST_24H=auto()
-    LAST_7D=auto()
-    ALL_TIME=auto()
+    LAST_24H = auto()
+    LAST_7D = auto()
+    ALL_TIME = auto()
 
     @staticmethod
     def string_to_top(text):
-        if text=='24H':
+        if text == '24H':
             return TwitchTop.LAST_24H
-        elif text=='7D':
+        elif text == '7D':
             return TwitchTop.LAST_7D
-        elif text=="ALL":
+        elif text == "ALL":
             return TwitchTop.ALL_TIME
-        
-        return TwitchTop.LAST_24H # default
+
+        return TwitchTop.LAST_24H  # default
+
 
 class TwitchClip:
-    MAX_CLIPS=4
+    MAX_CLIPS = 4
+
     def __init__(self, followed_ids):
-        self.twitch = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
+        self.twitch = Twitch(settings.TWITCH_PUBLIC_KEY,
+                             settings.TWITCH_PRIVATE_KEY)
         self.followed_ids = followed_ids
-        #App authentification
+        # App authentification
         self.twitch.authenticate_app([])
 
     def get_infos_followed(self):
-        users_followed = self.twitch.get_users(user_ids =self.followed_ids)
+        users_followed = self.twitch.get_users(user_ids=self.followed_ids)
 
         followers = {}
 
@@ -184,39 +183,41 @@ class TwitchClip:
             user_id = user['id']
             user_name = user['display_name']
             user_picture = user['profile_image_url']
-            followers[user_id] = {'name':user_name,'picture':user_picture}
+            followers[user_id] = {'name': user_name, 'picture': user_picture}
 
         return followers
 
         #names_followed =[user['display_name'] for user in users_followed['data']]
         #pictures_followed = [user['profile_image_url'] for user in users_followed['data']]
-        #return names_followed, pictures_followed
+        # return names_followed, pictures_followed
 
-    def get_datetimes(self,twitchTop):
+    def get_datetimes(self, twitchTop):
         end = datetime.today()
         start = None
         if twitchTop == TwitchTop.LAST_7D:
-            date_diff = timedelta(days = 7)
+            date_diff = timedelta(days=7)
             start = end - date_diff
         elif twitchTop == TwitchTop.ALL_TIME:
             end = None
-        else:# DEFAULT top == TwitchTop.LAST_24H
-            date_diff = timedelta(days = 1)
+        else:  # DEFAULT top == TwitchTop.LAST_24H
+            date_diff = timedelta(days=1)
             start = end - date_diff
 
-        return start,end
-    
-    def get_clips_from_channel(self,broadcaster_id,twitchTop=TwitchTop.LAST_24H,n_clips=MAX_CLIPS,ended_at=None):
+        return start, end
+
+    def get_clips_from_channel(self, broadcaster_id, twitchTop=TwitchTop.LAST_24H, n_clips=MAX_CLIPS, ended_at=None):
         start, end = self.get_datetimes(twitchTop)
         if ended_at is not None:
             end = ended_at
 
-        clips = self.twitch.get_clips(broadcaster_id=broadcaster_id,first=n_clips,started_at=start,ended_at=end)
+        clips = self.twitch.get_clips(
+            broadcaster_id=broadcaster_id, first=n_clips, started_at=start, ended_at=end)
         return clips
 
-    def get_clips_from_all_followed(self,twitchTop=TwitchTop.LAST_24H,n_clips=MAX_CLIPS,ended_at=None):
+    def get_clips_from_all_followed(self, twitchTop=TwitchTop.LAST_24H, n_clips=MAX_CLIPS, ended_at=None):
         clips = {}
         for flw_id in self.followed_ids:
-            clips[flw_id] = self.get_clips_from_channel(flw_id,twitchTop=twitchTop,n_clips=n_clips,ended_at=ended_at)
+            clips[flw_id] = self.get_clips_from_channel(
+                flw_id, twitchTop=twitchTop, n_clips=n_clips, ended_at=ended_at)
 
         return clips

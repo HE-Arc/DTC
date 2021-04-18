@@ -40,48 +40,48 @@ NODE ADDED AS ROW :
 </li>
 */
 
-function addSubscription(user_id, username, pictureURL){
+function addSubscription(user_id, username, pictureURL) {
     let liNode = document.createElement("li");
     liNode.className = "list-group-item list-group-item-twitch px-3 py-2";
-    liNode.id = "user-"+user_id;
+    liNode.id = "user-" + user_id;
     let rowNode = document.createElement("div");
-    rowNode.className="row";
+    rowNode.className = "row";
     let colNode = document.createElement("div");
-    colNode.className="col-auto";
+    colNode.className = "col-auto";
     let imgNode = document.createElement("img");
-    imgNode.className="profile-pic mr-1";
-    imgNode.src=pictureURL;
+    imgNode.className = "profile-pic mr-1";
+    imgNode.src = pictureURL;
     let usernameNode = document.createElement("div");
-    usernameNode.className="align-middle d-inline-block font-weight-bold";
-    usernameNode.innerText=username;
+    usernameNode.className = "align-middle d-inline-block font-weight-bold";
+    usernameNode.innerText = username;
 
     let divButton = document.createElement("div");
-    divButton.className="col v-center justify-content-end";
+    divButton.className = "col v-center justify-content-end";
 
     let formNode = document.createElement("form");
-    formNode.action=url_unfollow;
-    formNode.method='post';
-    formNode.className='follow_form';
+    formNode.action = url_unfollow;
+    formNode.method = 'post';
+    formNode.className = 'follow_form';
 
-    formNode.addEventListener("submit", e=>onSubmitForm(e,formNode));
+    formNode.addEventListener("submit", e => onSubmitForm(e, formNode));
 
     let messageNode = document.createElement("p");
-    messageNode.name="output-message";
-    messageNode.className="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success";
-    messageNode.style.cssText="display:none;";
+    messageNode.name = "output-message";
+    messageNode.className = "mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success";
+    messageNode.style.cssText = "display:none;";
 
     let inputNode = document.createElement("input");
-    inputNode.type="hidden";
-    inputNode.value=user_id;
-    inputNode.id="user_id";
-    inputNode.name="user_id";
+    inputNode.type = "hidden";
+    inputNode.value = user_id;
+    inputNode.id = "user_id";
+    inputNode.name = "user_id";
 
     let buttonNode = document.createElement("button");
-    buttonNode.type="submit";
-    buttonNode.className="btn btn-twitch p-2 lh-0 d-inline-block fs-8";
+    buttonNode.type = "submit";
+    buttonNode.className = "btn btn-twitch p-2 lh-0 d-inline-block fs-8";
 
     let iconNode = document.createElement("i");
-    iconNode.className="fas fa-trash";
+    iconNode.className = "fas fa-trash";
 
     liNode.appendChild(rowNode);
     rowNode.appendChild(colNode);
@@ -99,11 +99,11 @@ function addSubscription(user_id, username, pictureURL){
     listSubscriptions.appendChild(liNode);
 }
 
-function deleteSubscription(user_id){
-    let nodeUser = document.getElementById("user-"+user_id);
+function deleteSubscription(user_id) {
+    let nodeUser = document.getElementById("user-" + user_id);
     nodeUser.remove();
 
-    let nodeLi = document.getElementById("user-search-"+user_id);
+    let nodeLi = document.getElementById("user-search-" + user_id);
 
     let form = nodeLi.querySelector("form");
     form.action = url_follow;
@@ -124,17 +124,17 @@ function deleteSubscription(user_id){
  * This Event Listener is responsible to like and dislike clips without refreshing the page (fetch API, native JS).
  * Cleans other Timeouts and alerts everytime a like/dislike is emitted so there isn't any visual problems.
  */
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
     var follow_forms = document.getElementsByClassName('follow_form');
 
     for (let follow_form of follow_forms) {
-        follow_form.addEventListener("submit", e=>onSubmitForm(e,follow_form));
+        follow_form.addEventListener("submit", e => onSubmitForm(e, follow_form));
     }
 });
 
 
-function onSubmitForm(e,follow_form) {
+function onSubmitForm(e, follow_form) {
 
     e.preventDefault();
 
@@ -172,7 +172,7 @@ function onSubmitForm(e,follow_form) {
                 btn_icon.classList.add("fa-check")
                 follow_form.action = url_unfollow;
 
-                addSubscription(data.user_id,data.user_name,data.user_picture);
+                addSubscription(data.user_id, data.user_name, data.user_picture);
 
                 /*clearTimemouts();
 
@@ -196,7 +196,7 @@ function onSubmitForm(e,follow_form) {
                 btn_icon.classList.add("fa-plus")
                 btn_icon.classList.remove("fa-check")
                 follow_form.action = url_follow;
-                
+
                 deleteSubscription(data.user_id);
                 /*clearTimemouts();
 

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'dtcapp/log_sign_form.css' %}">
+<link rel="stylesheet" href="{% static 'dtcapp/log_sign_form.css' %}">
 {% endblock %}
 
 {% block title %}Login{% endblock %}
@@ -41,13 +41,17 @@
                         <hr class="my-4">
                         <h5 class="card-title text-center mb-4">Don't have an account ?</h5>
                         {% if error %}
-                        <a class="btn btn-lg btn-weight btn-secondary btn-block text-uppercase mb-3" style="pointer-events: none; opacity:0.4!important;">
-                            <i class="fab fa-twitch mr-2" style="vertical-align:baseline;font-size:1.2rem;"></i> Sign up with twitch
+                        <a class="btn btn-lg btn-weight btn-secondary btn-block text-uppercase mb-3"
+                            style="pointer-events: none; opacity:0.4!important;">
+                            <i class="fab fa-twitch mr-2" style="vertical-align:baseline;font-size:1.2rem;"></i> Sign up
+                            with twitch
                             now
                         </a>
                         {%else%}
-                        <a class="btn btn-lg btn-weight btn-twitch btn-block text-uppercase mb-3" href="{% url 'signup' %}" onclick="window.open('{{link}}');">
-                            <i class="fab fa-twitch mr-2" style="vertical-align:baseline;font-size:1.2rem;"></i> Sign up with twitch
+                        <a class="btn btn-lg btn-weight btn-twitch btn-block text-uppercase mb-3"
+                            href="{% url 'signup' %}" onclick="window.open('{{link}}');">
+                            <i class="fab fa-twitch mr-2" style="vertical-align:baseline;font-size:1.2rem;"></i> Sign up
+                            with twitch
                             now
                         </a>
                         {%endif%}

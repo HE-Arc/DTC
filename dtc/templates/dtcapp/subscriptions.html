@@ -8,9 +8,9 @@
 
 {% block scripts %}
 <script>
-    csrf_token = "{{ csrf_token }}";
-    url_unfollow = "{% url 'unfollow' %}";
-    url_follow = "{% url 'follow' %}";
+  csrf_token = "{{ csrf_token }}";
+  url_unfollow = "{% url 'unfollow' %}";
+  url_follow = "{% url 'follow' %}";
 </script>
 <script src="{% static 'dtcapp/follow_unfollow.js' %}"></script>
 {% endblock %}
@@ -32,13 +32,13 @@
           <li id="user-{{user.id}}" class="list-group-item list-group-item-twitch px-3 py-2">
             <div class="row">
               <div class="col-auto">
-                <img class="profile-pic mr-1"
-                  src="{{user.pictureURL}}">
+                <img class="profile-pic mr-1" src="{{user.pictureURL}}">
                 <div class="align-middle d-inline-block font-weight-bold">{{user.username}}</div>
               </div>
               <div class="col v-center justify-content-end">
                 <form action="{% url 'unfollow' %}" method="post" class='follow_form'>
-                  <p name="output-message" class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success" style="display:none;"></p>
+                  <p name="output-message" class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success"
+                    style="display:none;"></p>
                   <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
                   <button type="submit" class="btn btn-twitch p-2 lh-0 d-inline-block fs-8">
                     <i class="fas fa-trash"></i>
@@ -65,13 +65,13 @@
       </form>
 
       <div class="col p-5">
-      {% if searched %}
-      {% if not users %}
+        {% if searched %}
+        {% if not users %}
         <p>No user found !</p>
-      {% else %}
-      <ul class="list-group col-5 mx-auto p-1">
-        {% for user in users %}
-        
+        {% else %}
+        <ul class="list-group col-5 mx-auto p-1">
+          {% for user in users %}
+
           <li id="user-search-{{user.id}}" class="list-group-item list-group-item-twitch px-3 py-2">
             <div class="row">
               <div class="col-auto">
@@ -79,23 +79,27 @@
                 <div class="align-middle d-inline-block font-weight-bold">{{user.username}}</div>
               </div>
               <div class="col v-center justify-content-end">
-              <form action="{% if user.id in subscriptions_id %} {% url 'unfollow' %} {% else %} {% url 'follow' %} {% endif %}" method="post" class='follow_form'>
-                <p name="output-message" class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success" style="display:none;"></p>
-                <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
-                <button type="submit" class="btn {% if user.id in subscriptions_id %} btn-success {% else %} btn-twitch {% endif %} p-2 lh-0 d-inline-block fs-8">
-                  <i class="fas {% if user.id in subscriptions_id %} fa-check {% else %} fa-plus {% endif %}"></i>
-                </button>
-              </form>
+                <form
+                  action="{% if user.id in subscriptions_id %} {% url 'unfollow' %} {% else %} {% url 'follow' %} {% endif %}"
+                  method="post" class='follow_form'>
+                  <p name="output-message" class="mb-0 p-2 font-weight-bold text-uppercase text-twitch-feint bg-success"
+                    style="display:none;"></p>
+                  <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
+                  <button type="submit"
+                    class="btn {% if user.id in subscriptions_id %} btn-success {% else %} btn-twitch {% endif %} p-2 lh-0 d-inline-block fs-8">
+                    <i class="fas {% if user.id in subscriptions_id %} fa-check {% else %} fa-plus {% endif %}"></i>
+                  </button>
+                </form>
               </div>
             </div>
           </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      {% endif %}
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
-    
+
   </div>
 </div>
 
