@@ -45,20 +45,6 @@ def index(request):
 
     # Cannot access the main index page if authenticated already
     return TwitchToken.redirect_with_link(request,'dtcapp/index.html')
-    '''
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        context = {}
-        id, link = TwitchToken.get_link()
-        if id is None:
-            context['error'] = True
-        else:     
-            context['error'] = False
-            request.session['id_token_generator'] = id
-            context['link'] = link
-        return render(request, 'dtcapp/index.html',context)
-    '''
 
 
 class Home(AuthView):
@@ -105,12 +91,6 @@ class Home(AuthView):
                         'embed_url' : f"{clip['embed_url']}&parent={settings.CLIP_PARENT}",
                         'thumbnail_url' : f"{clip['thumbnail_url']}"
                         })
-                    # print(clip['title'])
-                    # print(clip['embed_url'])
-                    # print(clip['thumbnail_url'])
-
-            # list_clip_urls.append("https://clips.twitch.tv/embed?clip=FamousKitschyElephantRickroll-jzd7ZqFBGOX8n6Mh&parent=localhost&parent=127.0.0.1")
-            # list_clip_urls.append("https://clips.twitch.tv/embed?clip=ExpensiveDelightfulScorpionStrawBeary-6r9WE45noXxZKwt3&parent=localhost&parent=127.0.0.1")
 
             context['clips'] = list_clips
             context['is_likes'] = False
@@ -147,7 +127,6 @@ class FollowingSwitch(AuthView):
 
     def post(self, request):
         following_id = request.POST['following_id']
-        print(f"following_id:{following_id}")
         if following_id is not None:
             following = Following.objects.get(pk=following_id)
             if following is not None:
@@ -225,13 +204,6 @@ class Profile(AuthView):
         list_likedclips = self.request.user.Likes.all()
 
         context['likedclips'] = list_likedclips
-
-        for clip in list_likedclips :
-
-            print(clip.title_clip)
-            print(clip.id_clip)
-            print(clip.thumbnailURL_clip)
-            print(clip.clipURL)
 
         context['is_profile'] = True
 
@@ -356,40 +328,6 @@ def logout(request):
         logout_of(request)
 
     return redirect('index')
-
-
-class TwitchTest(AuthView):
-    template_name = "dtcapp/test-twitch.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        '''
-        # Maybe not create TwitchUser always to get the following (because it's saved in database)
-        # only use it if user press sync button
-        twitchUser = TwitchUser(
-            self.request.session['token'], self.request.session['refresh_token'])
-        followers = twitchUser.get_user_following()
-
-        # print(followers)
-
-        followers_ids = [follower['to_id'] for follower in followers['data']]
-        twitchClip = TwitchClip(followers_ids)
-        names_followed, pictures_followed = twitchClip.get_infos_followed()
-
-        followers = {}
-
-        for i, flw_id in enumerate(followers_ids):
-            followers[flw_id] = {}
-            followers[flw_id]['name'] = names_followed[i]
-            followers[flw_id]['picture'] = pictures_followed[i]
-
-        context['followers'] = followers
-
-        clips = twitchClip.get_clips_from_all_followed()
-        print(clips)
-        '''
-        return context
-
 
 class Follow(AuthView):
 

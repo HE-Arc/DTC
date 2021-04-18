@@ -1,8 +1,8 @@
 /* Image transform */
 
 .profile-pic {
-    border-radius: 50%;
-    width: 15rem;
+  border-radius: 50%;
+  width: 15rem;
 }
 
 .panel-group {
@@ -72,6 +72,6 @@
 }
 
 .border-shadow {
-  -webkit-box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.32); 
-  box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.32);
+  -webkit-box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.32);
+  box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.32);
 }

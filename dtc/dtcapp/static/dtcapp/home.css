@@ -1,4 +1,4 @@
-.following-bar{
+.following-bar {
   float: left;
   min-width: 7em;
 }
@@ -65,16 +65,16 @@
   margin: 0 auto;
 }
 
-.btn-sync{
-  padding:0.2em;
+.btn-sync {
+  padding: 0.2em;
   text-decoration: none;
   font-size: 2.6em;
-  color:rgb(22, 158, 22);
+  color: rgb(22, 158, 22);
 }
 
-.btn-sync:hover{
+.btn-sync:hover {
   text-decoration: none;
-  color:rgb(44, 206, 44);
+  color: rgb(44, 206, 44);
 }
 
 /* responsive size for title of clips */
@@ -106,6 +106,6 @@
 }
 
 .border-shadow {
-  -webkit-box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.32); 
-  box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.32);
+  -webkit-box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.32);
+  box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.32);
 }

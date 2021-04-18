@@ -52,10 +52,10 @@ body {
   right: 0;
   width: 100%;
   height: 100%;
-  background: url('../images/logo_dtc.png') center center;
+  background: url("../images/logo_dtc.png") center center;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: .04;
+  opacity: 0.04;
 }
 
 .cover-container {
@@ -130,7 +130,7 @@ body {
 /* Add properties on top of already existing in boostrap lead class. */
 
 .lead {
-  display:inline-block;
+  display: inline-block;
 }
 
 hr {

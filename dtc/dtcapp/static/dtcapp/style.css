@@ -39,7 +39,7 @@
 }
 
 .centering {
-  display:flex;
+  display: flex;
   align-items: center;
 }
 
@@ -56,24 +56,25 @@
   font-weight: 700;
 }
 
-body,html {
+body,
+html {
   height: 100%;
 }
 
 /* CONTAINER */
 
-.my-container { 
+.my-container {
   display: table;
-  width:100%;
+  width: 100%;
   height: 100%;
 }
 
-.content { 
-  display: table-row; 
+.content {
+  display: table-row;
   height: 100%;
 }
 
-.content-body { 
+.content-body {
   display: table-cell;
 }
 
@@ -91,7 +92,7 @@ body,html {
   color: #913efd;
   background-color: #fff;
   border-color: #913efd;
-  border : 3px solid;
+  border: 3px solid;
 }
 
 .btn-twitch-reversed:hover {
@@ -100,23 +101,29 @@ body,html {
   border-color: #740bfc;
 }
 
-.btn-twitch-reversed:focus, .btn-twitch-reversed.focus {
+.btn-twitch-reversed:focus,
+.btn-twitch-reversed.focus {
   box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
 }
 
-.btn-twitch-reversed.disabled, .btn-twitch-reversed:disabled {
+.btn-twitch-reversed.disabled,
+.btn-twitch-reversed:disabled {
   color: #913efd;
   background-color: #fff;
   border-color: #913efd;
 }
 
-.btn-twitch-reversed:not(:disabled):not(.disabled):active, .btn-twitch-reversed:not(:disabled):not(.disabled).active, .show > .btn-twitch-reversed.dropdown-toggle {
+.btn-twitch-reversed:not(:disabled):not(.disabled):active,
+.btn-twitch-reversed:not(:disabled):not(.disabled).active,
+.show > .btn-twitch-reversed.dropdown-toggle {
   color: #913efd;
   background-color: #740bfc;
   border-color: #6c02f6;
 }
 
-.btn-twitch-reversed:not(:disabled):not(.disabled):active:focus, .btn-twitch-reversed:not(:disabled):not(.disabled).active:focus, .show > .btn-twitch-reversed.dropdown-toggle:focus {
+.btn-twitch-reversed:not(:disabled):not(.disabled):active:focus,
+.btn-twitch-reversed:not(:disabled):not(.disabled).active:focus,
+.show > .btn-twitch-reversed.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
 }
 
@@ -132,21 +139,27 @@ body,html {
   border-color: #913efd;
 }
 
-.btn-outline-twitch:focus, .btn-outline-twitch.focus {
+.btn-outline-twitch:focus,
+.btn-outline-twitch.focus {
   box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
 }
 
-.btn-outline-twitch.disabled, .btn-outline-twitch:disabled {
+.btn-outline-twitch.disabled,
+.btn-outline-twitch:disabled {
   color: #913efd;
   background-color: transparent;
 }
 
-.btn-outline-twitch:not(:disabled):not(.disabled):active, .btn-outline-twitch:not(:disabled):not(.disabled).active, .show > .btn-outline-twitch.dropdown-toggle {
+.btn-outline-twitch:not(:disabled):not(.disabled):active,
+.btn-outline-twitch:not(:disabled):not(.disabled).active,
+.show > .btn-outline-twitch.dropdown-toggle {
   color: #913efd;
   background-color: #fff;
   border-color: #913efd;
 }
 
-.btn-outline-twitch:not(:disabled):not(.disabled):active:focus, .btn-outline-twitch:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitch.dropdown-toggle:focus {
+.btn-outline-twitch:not(:disabled):not(.disabled):active:focus,
+.btn-outline-twitch:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-twitch.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(145, 62, 253, 0.5);
 }

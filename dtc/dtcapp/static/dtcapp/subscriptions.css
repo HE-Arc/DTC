@@ -1,17 +1,17 @@
 .profile-pic {
-    border-radius: 50%;
-    width: 2.8rem;
+  border-radius: 50%;
+  width: 2.8rem;
 }
 
 .fs-6 {
-    font-size: .8rem !important;
+  font-size: 0.8rem !important;
 }
 
 .fs-28 {
-    font-size: 2.8rem !important;
+  font-size: 2.8rem !important;
 }
 
 .v-center {
-    display: flex;
-    align-items: center;
- }
+  display: flex;
+  align-items: center;
+}
