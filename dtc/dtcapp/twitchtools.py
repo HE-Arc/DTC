@@ -21,7 +21,7 @@ class TwitchToken:
     
 
     #PING REQUEST
-    TIMES=10
+    TIMES=180
     WAITING_SECONDS=1
 
     @staticmethod
@@ -86,7 +86,7 @@ class TwitchToken:
 
 class TwitchUser:
     TARGET_SCOPE = [AuthScope.USER_READ_EMAIL]
-    MAX_FOLLOWS = 3
+    MAX_FOLLOWS = 10
     def __init__(self,id_generator=None, id_user=None):
         self.twitch = None
         self.id_generator = id_generator
@@ -168,7 +168,7 @@ class TwitchTop(Enum):
         return TwitchTop.LAST_24H # default
 
 class TwitchClip:
-    MAX_CLIPS=2
+    MAX_CLIPS=5
     def __init__(self, followed_ids):
         self.twitch = Twitch(settings.TWITCH_PUBLIC_KEY,settings.TWITCH_PRIVATE_KEY)
         self.followed_ids = followed_ids
