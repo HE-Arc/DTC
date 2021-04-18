@@ -51,10 +51,14 @@ class User(AbstractBaseUser):
             for streamer_id, follow in followers.items():
                 streamer_db = Streamer.objects.filter(id_streamer=streamer_id).first()
                 streamer = None
-                if not streamer_db is not None:
+                if streamer_db is None:
                     streamer = Streamer(name=follow['name'],image=follow['picture'],id_streamer=streamer_id)
                     streamer.save()
                 else:
+                    if(streamer_db.image != follow['picture']):
+                        streamer_db.image = follow['picture']
+                        streamer_db.save()
+                        print("yoo ?", streamer_db.image, "yooo ?", follow['picture'] )
                     streamer = streamer_db
 
                 self.Follows.add(streamer)
